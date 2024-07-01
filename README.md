@@ -31,35 +31,13 @@ This project relies on environment variables to run. You can create a `.env` fil
 
 PostgreSQL 15 with PostGIS extension 3
 
-To set up the database, run the following SQL commands:
+Enable the PostGIS extension:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS postgis;
+```
 
-CREATE TABLE maps (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  slug VARCHAR(120) NOT NULL,
-  description TEXT NOT NULL
-);
+Run migrations:
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  provider VARCHAR(255) NOT NULL,
-  provider_id VARCHAR(255) NOT NULL UNIQUE,
-  email VARCHAR(255) NOT NULL,
-  token TEXT NOT NULL
-);
-
-CREATE TABLE pins (
-  id SERIAL PRIMARY KEY,
-  map_id INTEGER NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  slug VARCHAR(120) NOT NULL,
-  description TEXT NOT NULL,
-  location GEOGRAPHY(POINT, 4326) NOT NULL,
-  FOREIGN KEY (map_id) REFERENCES maps(id) ON DELETE CASCADE
-);
-
-ALTER TABLE maps ADD FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+```
+ddev exec vendor/bin/phinx migrate
