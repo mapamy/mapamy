@@ -14,15 +14,15 @@ class User
         $this->pdo = $pdo;
     }
 
-    public function findOrCreateUser($email, $provider = '', $providerId = '')
+    public function findOrCreateUser($email)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if (!$user) {
-            $stmt = $this->pdo->prepare("INSERT INTO users (email, provider, provider_id,token) VALUES (?, ?, ?, ?) RETURNING id");
-            $stmt->execute([$email, $provider, $providerId, Utils::generateToken()]);
+            $stmt = $this->pdo->prepare("INSERT INTO users (email, token) VALUES (?, ?) RETURNING id");
+            $stmt->execute([$email, Utils::generateToken()]);
             $userId = $stmt->fetchColumn();
             return ['id' => $userId, 'email' => $email];
         }

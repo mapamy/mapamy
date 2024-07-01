@@ -31,7 +31,7 @@ This project relies on environment variables to run. You can create a `.env` fil
 
 PostgreSQL 15 with PostGIS extension 3
 
-Enable the PostGIS extension:
+Enable the PostGIS extension in the database:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS postgis;

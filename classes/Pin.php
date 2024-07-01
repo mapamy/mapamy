@@ -11,11 +11,11 @@ class Pin
         $this->pdo = $pdo;
     }
 
-    public function createPin(int $mapId, string $name, string $description, float $latitude, float $longitude): bool
+    public function createPin(int $mapId, int $userId, string $name, string $description, float $latitude, float $longitude): bool
     {
         $slug = Utils::generateSlug($name);
-        $stmt = $this->pdo->prepare('INSERT INTO pins (map_id, name, description, slug, location) VALUES (?, ?, ?, ?, ST_MakePoint(?, ?))');
-        return $stmt->execute([$mapId, $name, $description, $slug, $longitude, $latitude]);
+        $stmt = $this->pdo->prepare('INSERT INTO pins (map_id, user_id, name, description, slug, location) VALUES (?, ?, ?, ?, ?, ST_MakePoint(?, ?))');
+        return $stmt->execute([$mapId, $userId, $name, $description, $slug, $longitude, $latitude]);
     }
 
     public function getPinsByMapId(int $mapId): array
