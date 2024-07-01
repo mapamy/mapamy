@@ -18,15 +18,11 @@ try {
     ]);
 
     $googleUser = $provider->getResourceOwner($token);
-    $user = $User->findOrCreateUser(
-        $googleUser->getEmail(),
-        'google',
-        $googleUser->getId(),
-    );
+    $user_data = $User->findOrCreateUser($googleUser->getEmail());
 
-    $User->updateUserToken($user['id'], $token);
+    $User->updateUserToken($user_data['id'], $token);
 
-    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_id'] = $user_data['id'];
     header('Location: /dashboard.php');
     exit;
 } catch (Exception $e) {

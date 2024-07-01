@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['descr
     $pdo = (new Database())->getConnection();
     $map = new Map($pdo);
     try {
-        $mapId = $map->createMap($_SESSION['user_id'], $_POST['name'], $_POST['description']);
+        $mapId = $map->createMap($_SESSION['user_id'], $_POST['name'], $_POST['description'], $_POST['privacy']);
         header('Location: /create-pin/' . $mapId);
         exit;
     } catch (Exception $e) {

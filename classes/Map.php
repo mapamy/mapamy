@@ -16,11 +16,11 @@ class Map
     /**
      * @throws Exception
      */
-    public function createMap(int $userId, string $name, string $description): bool
+    public function createMap(int $userId, string $name, string $description, int $privacy = 1): bool
     {
         $slug = Utils::generateSlug($name);
-        $stmt = $this->pdo->prepare('INSERT INTO maps (user_id, name, description, slug) VALUES (?, ?, ?, ?) RETURNING id');
-        $stmt->execute([$userId, $name, $description, $slug]);
+        $stmt = $this->pdo->prepare('INSERT INTO maps (user_id, name, description, slug, privacy) VALUES (?, ?, ?, ?, ?) RETURNING id');
+        $stmt->execute([$userId, $name, $description, $slug, $privacy]);
         $mapId = $stmt->fetchColumn();
         if (!$mapId) {
             throw new Exception('Failed to create map');

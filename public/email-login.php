@@ -16,7 +16,7 @@ $loginLinkSent = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     $email = $_POST['email'];
-    $user = $User->findOrCreateUser($email, 'email');
+    $user = $User->findOrCreateUser($email);
     $token = $User->updateUserToken($user['id']);
 
     // Send the email with the login link

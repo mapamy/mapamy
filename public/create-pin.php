@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['descr
     $pdo = (new Database())->getConnection();
     $pin = new Pin($pdo);
     try {
-        $pin->createPin($_POST['map'], $_POST['name'], $_POST['description'], $_POST['lat'], $_POST['lng']);
+        $pin->createPin($_POST['map'], $_SESSION['user_id'], $_POST['name'], $_POST['description'], $_POST['lat'], $_POST['lng']);
         // Get the slug of this map
         $map = new Map($pdo);
         $mapData = $map->getMapById($_POST['map']);
