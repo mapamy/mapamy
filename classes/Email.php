@@ -11,11 +11,19 @@ class Email
 
     public function __construct()
     {
-        $this->sendGrid = new SendGrid($_ENV['SENDGRID_TOKEN']);
+        if (isset($_ENV['SENDGRID_TOKEN'])) {
+            $this->sendGrid = new SendGrid($_ENV['SENDGRID_TOKEN']);
+        } else {
+            $this->sendGrid = false;
+        }
     }
 
     public function sendEmail($to, $subject, $body)
     {
+        if (!$this->sendGrid) {
+            // Use PHP mail function to catch emails in development with Mailpit
+            return mail($to, $subject, $body);
+        }
         $email = new Mail();
         $email->setFrom('info@mapamy.com', 'Mapamy');
         $email->setSubject($subject);
@@ -30,7 +38,7 @@ class Email
             $response = $this->sendGrid->send($email);
             return $response;
         } catch (Exception $e) {
-            echo 'Caught exception: '. $e->getMessage() ."\n";
+            echo 'Caught exception: ' . $e->getMessage() . "\n";
         }
     }
 
