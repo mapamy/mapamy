@@ -22,16 +22,22 @@ $map = new Map($pdo);
 // Get pin data
 try {
     $pinData = $pin->getPinBySlug($_GET['slug']);
-    if (!$pinData) {
-        http_response_code(404);
-        exit('Pin not found');
-    }
 } catch (Exception $e) {
     $errorMessage = $e->getMessage();
 }
 
+if (!$pinData) {
+    http_response_code(404);
+    exit('Pin not found');
+}
+
 // Get map data
-$mapData = $map->getMapByPinSlug($_GET['slug']);
+try {
+    $mapData = $map->getMapByPinSlug($pinData['slug']);
+} catch (Exception $e) {
+    http_response_code(500);
+    exit('Internal Server Error');
+}
 
 $view = [
     'bodyType' => 'half-screens',
