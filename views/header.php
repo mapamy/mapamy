@@ -6,8 +6,10 @@ if (!isset($view)) {
 <html>
 <head>
     <title>Mapamy</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="/dist/style.css">
+    <?php
+    App\AssetManager::getInstance()->printStyles();
+    App\AssetManager::getInstance()->printScripts();
+    ?>
 </head>
-<body>
-<h1>Mapamy</h1>
+<body class="<?php echo $view['bodyType'] ?? 'full-screen'; ?>">

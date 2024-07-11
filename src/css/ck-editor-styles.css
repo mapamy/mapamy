@@ -1,0 +1,63 @@
+/**
+ * This file contains the styling for the CKEditor content.
+ */
+
+.main-container {
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-content {
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+.ck-content h2.document-title {
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* Default margin for li, padding, p, h1, h2, h3, h4, h5, h6 */
+.ck-content ul,
+.ck-content ol,
+.ck-content p,
+.ck-content h1,
+.ck-content h2,
+.ck-content h3,
+.ck-content h4,
+.ck-content h5,
+.ck-content h6 {
+	margin: 1em 0;
+	padding: 0;
+}
+
+.ck-content ul {
+	list-style-type: disc;
+	margin-left: 1.5em;
+}
+
+.ck-content p.info-box {
+	--background-size: 30px;
+	--background-color: #072A46;
+	padding: 1.2em 2em;
+	border: 1px solid var(--background-color);
+	background: linear-gradient(
+			135deg,
+			var(--background-color) 0%,
+			var(--background-color) var(--background-size),
+			transparent var(--background-size)
+		),
+		linear-gradient(
+			135deg,
+			transparent calc(100% - var(--background-size)),
+			var(--background-color) calc(100% - var(--background-size)),
+			var(--background-color)
+		);
+	border-radius: 10px;
+	margin: 1.5em 2em;
+	box-shadow: 5px 5px 0 #ffe6ef;
+}

@@ -4,13 +4,19 @@ use App\Database;
 use App\Map;
 use App\Pin;
 
+// Add assets
+App\AssetManager::getInstance()->addScript('leaflet');
+App\AssetManager::getInstance()->addScript('ckEditor');
+App\AssetManager::getInstance()->addStyle('leaflet');
+App\AssetManager::getInstance()->addStyle('ckEditor');
+
 $errorMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['description'], $_POST['lat'], $_POST['lng'], $_POST['map'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng'], $_POST['map'])) {
     $pdo = (new Database())->getConnection();
     $pin = new Pin($pdo);
     try {
-        $pin->createPin($_POST['map'], $_SESSION['user_id'], $_POST['name'], $_POST['description'], $_POST['lat'], $_POST['lng']);
+        $pin->createPin($_POST['map'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
         // Get the slug of this map
         $map = new Map($pdo);
         $mapData = $map->getMapById($_POST['map']);
@@ -24,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['descr
 }
 
 $view = [
+    'bodyType' => 'half-screens',
     'errorMessage' => $errorMessage,
 ];
 

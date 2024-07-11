@@ -29,15 +29,41 @@ This project relies on environment variables to run. You can create a `.env` fil
 
 ## Database Setup
 
-PostgreSQL 15 with PostGIS extension 3
+The first time you set up this project, you will have to enable the PostGIS extension in the database:
 
-Enable the PostGIS extension in the database:
+Access the database using the following command:
+
+```
+ddev ssh
+psql -U db -d db
+```
+
+Run the following command in the database:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS postgis;
 ```
 
-Run migrations:
+Then, everytime you start the project, you will have to run the following command to sync any potential changes in the database:
 
 ```
 ddev exec vendor/bin/phinx migrate
+```
+
+This command will run the migrations using Phinx.
+
+## Install required node modules
+
+To install the required node modules, run:
+
+```
+ddev exec npm install
+```
+
+## Build files
+
+You also need to build your js and css assets. To do this, run:
+
+````
+ddev exec npm run webpack
+```

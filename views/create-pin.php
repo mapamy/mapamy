@@ -3,38 +3,50 @@ if (!isset($view)) {
     exit('Data not passed to view');
 }
 ?>
-<?php
-if (isset($view['errorMessage'])) {
-    echo '<p>' . $view['errorMessage'] . '</p>';
-}
-?>
-<div id="map-id" style="height: 180px;"></div>
-<form method="post">
-    <label for="name">Pin Name</label>
-    <input type="text" id="name" name="name" required>
-    <label for="description">Description</label>
-    <textarea id="description" name="description" required></textarea>
-    <input type="text" id="lat" name="lat">
-    <input type="text" id="lng" name="lng">
-    <input type="text" id="map" name="map" value="<?php echo $_GET['map']; ?>">
-    <button type="submit">Create Pin</button>
-</form>
-<script>
-    const map = L.map('map-id').setView([51.505, -0.09], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-    }).addTo(map);
+<div id="leaflet-map" class="map"></div>
+<div class="main">
+    <?php
+    if (isset($view['errorMessage'])) {
+        echo '<p>' . $view['errorMessage'] . '</p>';
+    }
+    ?>
+    <form method="post" class="form">
+        <div class="form-control">
+            <label for="name">Pin Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-control">
+            <label for="wysiwyg">Content</label>
+            <textarea name="wysiwyg" id="wysiwyg"></textarea>
+        </div>
+        <div class="form-control">
+            <label for="lat">Latitude</label>
+            <input type="text" id="lat" name="lat">
+        </div>
+        <div class="form-control">
+            <label for="lng">Longitude</label>
+            <input type="text" id="lng" name="lng">
+        </div>
+        <div class="form-control">
+            <label for="map">Map ID</label>
+            <input type="text" id="map" name="map" value="<?php echo $_GET['map']; ?>">
+        </div>
+        <button type="submit" class="button">Create Pin</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let marker;
 
-    let marker;
+            window.map.on('click', (e) => {
+                document.getElementById('lat').value = e.latlng.lat;
+                document.getElementById('lng').value = e.latlng.lng;
 
-    map.on('click', (e) => {
-        document.getElementById('lat').value = e.latlng.lat;
-        document.getElementById('lng').value = e.latlng.lng;
+                if (marker) {
+                    window.map.removeLayer(marker);
+                }
 
-        if (marker) {
-            map.removeLayer(marker);
-        }
-
-        marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    });
-</script>
+                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
+            })
+        });
+    </script>
+</div>

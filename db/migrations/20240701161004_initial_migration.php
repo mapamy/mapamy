@@ -20,6 +20,7 @@ final class InitialMigration extends AbstractMigration
             ->addColumn('name', 'string', ['limit' => 255])
             ->addColumn('slug', 'string', ['limit' => 120])
             ->addColumn('description', 'text')
+            ->addColumn('wysiwyg', 'text')
             ->addColumn('privacy', 'integer')
             ->create();
 
@@ -30,6 +31,7 @@ final class InitialMigration extends AbstractMigration
             ->addColumn('name', 'string', ['limit' => 255])
             ->addColumn('slug', 'string', ['limit' => 120])
             ->addColumn('description', 'text')
+            ->addColumn('wysiwyg', 'text')
             ->addColumn('location', 'point')
             ->addForeignKey('map_id', 'maps', 'id', ['delete' => 'CASCADE'])
             ->create();
@@ -43,5 +45,23 @@ final class InitialMigration extends AbstractMigration
         $this->table('pins')
             ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE'])
             ->update();
+
+        // Add unique constraint to 'users' table
+        $this->table('users')
+            ->addIndex(['email'], ['unique' => true])
+            ->update();
+
+        // Add unique constraint to 'maps' table
+        $this->table('maps')
+            ->addIndex(['slug'], ['unique' => true])
+            ->update();
+
+        // Add unique constraint to 'pins' table
+        $this->table('pins')
+            ->addIndex(['slug'], ['unique' => true])
+            ->update();
+
+        // Add spatial index to 'pins' table
+        $this->execute('CREATE INDEX location_idx ON pins USING GIST (location)');
     }
 }

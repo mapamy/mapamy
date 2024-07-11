@@ -16,29 +16,30 @@ if (!isset($_GET['slug'])) {
 }
 
 $pdo = (new Database())->getConnection();
-$map = new Map($pdo);
 $pin = new Pin($pdo);
+$map = new Map($pdo);
 
+// Get pin data
 try {
-    $mapData = $map->getMapBySlug($_GET['slug']);
-    if (!$mapData) {
+    $pinData = $pin->getPinBySlug($_GET['slug']);
+    if (!$pinData) {
         http_response_code(404);
-        exit;
+        exit('Pin not found');
     }
-    $pins = $pin->getPinsByMapId($mapData['id']);
 } catch (Exception $e) {
     $errorMessage = $e->getMessage();
 }
 
+// Get map data
+$mapData = $map->getMapByPinSlug($_GET['slug']);
+
 $view = [
     'bodyType' => 'half-screens',
     'errorMessage' => $errorMessage,
+    'pinData' => $pinData ?? null,
     'mapData' => $mapData ?? null,
-    'pins' => $pins ?? [],
-    'isOwner' => isset($mapData) && $mapData['user_id'] === $_SESSION['user_id'],
 ];
 
-// View
 include __DIR__ . '/../views/header.php';
-include __DIR__ . '/../views/view-map.php';
+include __DIR__ . '/../views/view-pin.php';
 include __DIR__ . '/../views/footer.php';

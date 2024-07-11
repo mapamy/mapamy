@@ -16,11 +16,13 @@ class Map
     /**
      * @throws Exception
      */
-    public function createMap(int $userId, string $name, string $description, int $privacy = 1): bool
+    public function createMap(int $userId, string $name, string $wysiwyg, int $privacy = 1): bool
     {
         $slug = Utils::generateSlug($name);
-        $stmt = $this->pdo->prepare('INSERT INTO maps (user_id, name, description, slug, privacy) VALUES (?, ?, ?, ?, ?) RETURNING id');
-        $stmt->execute([$userId, $name, $description, $slug, $privacy]);
+        $description = Utils::generateExcerpt($wysiwyg);
+        $wysiwyg = '<h2>Welcome to my awesome map!</h2><p>' . $description . '</p>';
+        $stmt = $this->pdo->prepare('INSERT INTO maps (user_id, name, description, wysiwyg, slug, privacy) VALUES (?, ?, ?, ?, ?, ?) RETURNING id');
+        $stmt->execute([$userId, $name, $description, $wysiwyg, $slug, $privacy]);
         $mapId = $stmt->fetchColumn();
         if (!$mapId) {
             throw new Exception('Failed to create map');
@@ -44,5 +46,12 @@ class Map
         return $result !== false ? $result : null;
     }
 
-    // Add more methods as needed
+    public function getMapByPinSlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.slug = ?');
+        $stmt->execute([$slug]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
 }

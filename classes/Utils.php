@@ -22,4 +22,15 @@ class Utils
             return 0;
         }
     }
+
+    public static function generateExcerpt(string $wysiwyg): string
+    {
+        $description = strip_tags($wysiwyg);
+        $words = explode(' ', $description);
+        if (count($words) > 50) {
+            $words = array_slice($words, 0, 50);
+            $description = implode(' ', $words) . '...';
+        }
+        return $description;
+    }
 }

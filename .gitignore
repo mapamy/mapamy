@@ -1,4 +1,6 @@
 .idea
 .env
+/node_modules/
 /vendor/
+/public/dist/
 /public/.htaccess
