@@ -11,6 +11,16 @@ class Pin
         $this->pdo = $pdo;
     }
 
+    /**
+     * Creates a new pin.
+     * @param int $mapId
+     * @param int $userId
+     * @param string $name
+     * @param string $wysiwyg
+     * @param float $latitude
+     * @param float $longitude
+     * @return bool
+     */
     public function createPin(int $mapId, int $userId, string $name, string $wysiwyg, float $latitude, float $longitude): bool
     {
         $slug = Utils::generateSlug($name);
@@ -19,6 +29,11 @@ class Pin
         return $stmt->execute([$mapId, $userId, $name, $description, $wysiwyg, $slug, $longitude, $latitude]);
     }
 
+    /**
+     * Gets all pins for a map.
+     * @param int $mapId
+     * @return array
+     */
     public function getPinsByMapId(int $mapId): array
     {
         $stmt = $this->pdo->prepare('SELECT id, map_id, name, description, slug, ST_X(location::geometry) AS longitude, ST_Y(location::geometry) AS latitude FROM pins WHERE map_id = ?');
@@ -26,6 +41,11 @@ class Pin
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Gets a pin by its slug.
+     * @param string $slug
+     * @return array|null
+     */
     public function getPinBySlug(string $slug): ?array
     {
         $stmt = $this->pdo->prepare('SELECT id, map_id, name, description, wysiwyg, slug, ST_X(location::geometry) AS longitude, ST_Y(location::geometry) AS latitude FROM pins WHERE slug = ?');

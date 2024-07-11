@@ -14,6 +14,12 @@ class Map
     }
 
     /**
+     * Creates a new map.
+     * @param int $userId
+     * @param string $name
+     * @param string $wysiwyg
+     * @param int $privacy
+     * @return bool
      * @throws Exception
      */
     public function createMap(int $userId, string $name, string $wysiwyg, int $privacy = 1): bool
@@ -30,6 +36,11 @@ class Map
         return $mapId;
     }
 
+    /**
+     * Updates a map.
+     * @param string $slug
+     * @return array|null
+     */
     public function getMapBySlug(string $slug): ?array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE slug = ?');
@@ -38,6 +49,11 @@ class Map
         return $result !== false ? $result : null;
     }
 
+    /**
+     * Gets a map by its ID.
+     * @param int $id
+     * @return array|null
+     */
     public function getMapById(int $id): ?array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE id = ?');
@@ -46,6 +62,11 @@ class Map
         return $result !== false ? $result : null;
     }
 
+    /**
+     * Gets all maps.
+     * @param string $slug
+     * @return array|null
+     */
     public function getMapByPinSlug(string $slug): ?array
     {
         $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.slug = ?');

@@ -7,6 +7,11 @@ use League\OAuth2\Client\Provider\Instagram;
 
 class OAuth
 {
+
+    /**
+     * Returns a Google provider.
+     * @return Google
+     */
     public static function getGoogleProvider()
     {
         return new Google([
@@ -16,6 +21,10 @@ class OAuth
         ]);
     }
 
+    /**
+     * Returns an Instagram provider.
+     * @return Instagram
+     */
     public static function getInstagramProvider()
     {
         return new Instagram([

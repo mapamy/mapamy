@@ -14,6 +14,11 @@ class User
         $this->pdo = $pdo;
     }
 
+    /**
+     * Finds a user by email or creates a new user.
+     * @param $email
+     * @return array|mixed
+     */
     public function findOrCreateUser($email)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
@@ -30,6 +35,11 @@ class User
         return $user;
     }
 
+    /**
+     * Gets a user by their ID.
+     * @param $id
+     * @return mixed
+     */
     public function getUserById($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
@@ -37,6 +47,12 @@ class User
         return $stmt->fetch();
     }
 
+    /**
+     * Updates a user's token.
+     * @param $id
+     * @param bool $token
+     * @return string
+     */
     public function updateUserToken($id, $token = false): string
     {
         // Generate a random token if not provided
@@ -48,6 +64,11 @@ class User
         return $token;
     }
 
+    /**
+     * Gets a user by their email.
+     * @param $email
+     * @return mixed
+     */
     public function getUserByEmail($email)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
