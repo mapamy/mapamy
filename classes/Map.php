@@ -46,4 +46,12 @@ class Map
         return $result !== false ? $result : null;
     }
 
+    public function getMapByPinSlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.slug = ?');
+        $stmt->execute([$slug]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
 }

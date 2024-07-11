@@ -26,4 +26,12 @@ class Pin
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getPinBySlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT id, map_id, name, description, wysiwyg, slug, ST_X(location::geometry) AS longitude, ST_Y(location::geometry) AS latitude FROM pins WHERE slug = ?');
+        $stmt->execute([$slug]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result ? $result : null;
+    }
+
 }

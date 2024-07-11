@@ -49,6 +49,10 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         $_GET['slug'] = $vars['slug'];
         require 'view-map.php';
     });
+    $r->addRoute('GET', '/p/{slug}', function ($vars) {
+        $_GET['slug'] = $vars['slug'];
+        require 'view-pin.php';
+    });
     $r->addRoute('GET', '/oauth/google-callback.php{params:.*}', function ($vars) {
         $_GET = array_merge($_GET, explode('/', $vars['params']));
         require 'oauth/google-callback.php';
