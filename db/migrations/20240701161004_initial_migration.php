@@ -20,6 +20,7 @@ final class InitialMigration extends AbstractMigration
             ->addColumn('name', 'string', ['limit' => 255])
             ->addColumn('slug', 'string', ['limit' => 120])
             ->addColumn('description', 'text')
+            ->addColumn('wysiwyg', 'text')
             ->addColumn('privacy', 'integer')
             ->create();
 
@@ -30,6 +31,7 @@ final class InitialMigration extends AbstractMigration
             ->addColumn('name', 'string', ['limit' => 255])
             ->addColumn('slug', 'string', ['limit' => 120])
             ->addColumn('description', 'text')
+            ->addColumn('wysiwyg', 'text')
             ->addColumn('location', 'point')
             ->addForeignKey('map_id', 'maps', 'id', ['delete' => 'CASCADE'])
             ->create();
