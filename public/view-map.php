@@ -4,6 +4,10 @@ use App\Database;
 use App\Map;
 use App\Pin;
 
+// Add assets
+App\AssetManager::getInstance()->addScript('leaflet');
+App\AssetManager::getInstance()->addStyle('leaflet');
+
 $errorMessage = '';
 
 if (!isset($_GET['slug'])) {
@@ -27,6 +31,7 @@ try {
 }
 
 $view = [
+    'bodyType' => 'half-screens',
     'errorMessage' => $errorMessage,
     'mapData' => $mapData ?? null,
     'pins' => $pins ?? [],

@@ -1,0 +1,31 @@
+{
+  "name": "Mapamy",
+  "version": "1.0.0",
+  "scripts": {
+    "webpack": "webpack --mode=development",
+    "webpack-prod": "webpack --mode=production"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.4.5",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^8.2.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "ckeditor5": "^42.0.0",
+    "css-loader": "^6.5.1",
+    "cssnano": "^4.1.8",
+    "leaflet": "^1.9.4",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^12.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "copy-webpack-plugin": "^12.0.2",
+    "mini-css-extract-plugin": "^2.4.5",
+    "sass": "^1.49.7",
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}

@@ -1,0 +1,55 @@
+.form {
+    font-family: $font-primary;
+
+    .form-control {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid $color-black;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            &:focus {
+                border-color: $color-blue;
+                outline: none;
+            }
+        }
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: $color-green;
+        color: $color-black;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($color-green, 10%);
+        }
+    }
+
+    .form-feedback {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        color: $color-black;
+        background-color: $color-yellow;
+        text-align: center;
+    }
+}
