@@ -6,6 +6,12 @@ use Random\RandomException;
 
 class Utils
 {
+
+    /**
+     * Generates a slug from a string.
+     * @param string $name
+     * @return string
+     */
     public static function generateSlug(string $name): string
     {
         $slug = preg_replace('/[^a-z0-9]+/i', '-', $name);
@@ -14,6 +20,10 @@ class Utils
         return $slug;
     }
 
+    /**
+     * Generates a random token.
+     * @return string
+     */
     public static function generateToken(): string
     {
         try {
@@ -23,6 +33,11 @@ class Utils
         }
     }
 
+    /**
+     * Generates an excerpt from a WYSIWYG string.
+     * @param string $wysiwyg
+     * @return string
+     */
     public static function generateExcerpt(string $wysiwyg): string
     {
         $description = strip_tags($wysiwyg);

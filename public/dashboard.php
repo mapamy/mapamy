@@ -2,19 +2,31 @@
 
 use App\Database;
 use App\User;
+use App\Map;
+use App\Pin;
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: /index');
-    exit;
-}
+// Add assets
+App\AssetManager::getInstance()->addScript('leaflet');
+App\AssetManager::getInstance()->addStyle('leaflet');
 
 $pdo = (new Database())->getConnection();
 $User = new User($pdo);
 $user = $User->getUserById($_SESSION['user_id']);
 
+// Get maps by user ID
+$Map = new Map($pdo);
+$maps = $Map->getMapsByUserId($_SESSION['user_id']);
+
+// Get pins by user ID
+$Pin = new Pin($pdo);
+$pins = $Pin->getPinsByUserId($_SESSION['user_id']);
+
 $view = [
+    'bodyType' => 'half-screens',
     'baseUrl' => $_ENV['BASE_URL'],
     'email' => htmlspecialchars($user['email']),
+    'maps' => $maps,
+    'pins' => $pins,
 ];
 
 // Load the home view

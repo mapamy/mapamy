@@ -30,9 +30,16 @@ import {
     SpecialCharactersLatin,
     SpecialCharactersMathematical,
     SpecialCharactersText,
+    SimpleUploadAdapter,
     Style,
     Underline,
-    Undo
+    Undo,
+    Image,
+    ImageToolbar,
+    ImageUpload,
+    ImageCaption,
+    ImageStyle,
+    ImageResize
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
@@ -49,6 +56,8 @@ const editorConfig = {
             '|',
             'heading',
             'style',
+            '|',
+            'imageUpload', // Add this line
             '|',
             'fontSize',
             'fontFamily',
@@ -99,10 +108,56 @@ const editorConfig = {
         SpecialCharactersLatin,
         SpecialCharactersMathematical,
         SpecialCharactersText,
+        SimpleUploadAdapter,
         Style,
         Underline,
-        Undo
+        Undo,
+        Image,
+        ImageToolbar,
+        ImageUpload,
+        ImageCaption,
+        ImageStyle,
+        ImageResize
     ],
+    simpleUpload: {
+        uploadUrl: '', // This will be set dynamically
+    },
+    image: {
+        toolbar: [
+            'imageTextAlternative',
+            'toggleImageCaption',
+            'imageStyle:inline',
+            'imageStyle:block',
+            'imageStyle:side',
+            'resizeImage:original',
+            'resizeImage:50',
+            'resizeImage:75',
+            'resizeImage:custom'
+        ],
+        resizeOptions: [
+            {
+                name: 'resizeImage:original',
+                label: 'Original',
+                value: null
+            },
+            {
+                name: 'resizeImage:50',
+                label: '50%',
+                value: '50'
+            },
+            {
+                name: 'resizeImage:75',
+                label: '75%',
+                value: '75'
+            },
+            {
+                name: 'resizeImage:custom',
+                label: 'Custom',
+                value: 'custom'
+            }
+        ],
+        resizeUnit: 'px' // Use 'px' for pixels instead of '%'
+    },
     fontFamily: {
         supportAllValues: true
     },
@@ -204,7 +259,12 @@ const editorConfig = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    ClassicEditor.create(document.querySelector('#wysiwyg'), editorConfig)
+    const wysiwygElement = document.querySelector('#wysiwyg');
+    const mapId = wysiwygElement.getAttribute('data-map-id');
+
+    editorConfig.simpleUpload.uploadUrl = `/upload-editor-image/${mapId}`;
+
+    ClassicEditor.create(wysiwygElement, editorConfig)
         .catch(error => {
             console.error(error);
         });

@@ -37,6 +37,10 @@ class Database
         }
     }
 
+    /**
+     * Returns the PDO connection.
+     * @return PDO
+     */
     public function getConnection()
     {
         return $this->pdo;

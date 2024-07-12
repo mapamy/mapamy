@@ -2,6 +2,7 @@
 if (!isset($view)) {
     exit('Data not passed to view');
 }
+$mapData = $view['mapData'];
 ?>
 <div id="leaflet-map" class="map"></div>
 <div class="main">
@@ -17,7 +18,7 @@ if (!isset($view)) {
         </div>
         <div class="form-control">
             <label for="wysiwyg">Content</label>
-            <textarea name="wysiwyg" id="wysiwyg"></textarea>
+            <textarea name="wysiwyg" id="wysiwyg" data-map-id="<?php echo $mapData['id']; ?>"></textarea>
         </div>
         <div class="form-control">
             <label for="lat">Latitude</label>
@@ -27,26 +28,30 @@ if (!isset($view)) {
             <label for="lng">Longitude</label>
             <input type="text" id="lng" name="lng">
         </div>
-        <div class="form-control">
-            <label for="map">Map ID</label>
-            <input type="text" id="map" name="map" value="<?php echo $_GET['map']; ?>">
-        </div>
         <button type="submit" class="button">Create Pin</button>
     </form>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let marker;
-
-            window.map.on('click', (e) => {
-                document.getElementById('lat').value = e.latlng.lat;
-                document.getElementById('lng').value = e.latlng.lng;
-
-                if (marker) {
-                    window.map.removeLayer(marker);
-                }
-
-                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
-            })
-        });
-    </script>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let marker;
+        const pins = <?php echo json_encode($view['pins']); ?>;
+        const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
+
+        pins.forEach(pin => {
+            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br>${pin.description}`);
+        });
+
+        window.leafletUtils.fitMapToMarkers(pinCoordinates);
+
+        window.map.on('click', (e) => {
+            document.getElementById('lat').value = e.latlng.lat;
+            document.getElementById('lng').value = e.latlng.lng;
+
+            if (marker) {
+                window.map.removeLayer(marker);
+            }
+
+            marker = window.leafletUtils.addMarker(e.latlng.lat, e.latlng.lng);
+        });
+    });
+</script>
