@@ -66,6 +66,18 @@ class Map
     }
 
     /**
+     * Gets all maps by a user ID.
+     * @param int $userId
+     * @return array
+     */
+    public function getMapsByUserId(int $userId): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE user_id = ?');
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Creates a new map.
      * @param int $userId
      * @param string $name

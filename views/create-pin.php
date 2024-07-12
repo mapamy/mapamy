@@ -34,6 +34,14 @@ $mapData = $view['mapData'];
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let marker;
+        const pins = <?php echo json_encode($view['pins']); ?>;
+        const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
+
+        pins.forEach(pin => {
+            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br>${pin.description}`);
+        });
+
+        window.leafletUtils.fitMapToMarkers(pinCoordinates);
 
         window.map.on('click', (e) => {
             document.getElementById('lat').value = e.latlng.lat;
@@ -43,7 +51,7 @@ $mapData = $view['mapData'];
                 window.map.removeLayer(marker);
             }
 
-            marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
-        })
+            marker = window.leafletUtils.addMarker(e.latlng.lat, e.latlng.lng);
+        });
     });
 </script>

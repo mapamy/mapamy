@@ -13,9 +13,12 @@ App\AssetManager::getInstance()->addStyle('ckEditor');
 $pdo = (new Database())->getConnection();
 $map = new Map($pdo);
 
+$pin = new Pin($pdo);
+
 // Make sure this map exists
 try {
     $mapData = $map->getMapById($_GET['id']);
+    $pins = $pin->getPinsByMapId($mapData['id']);
 } catch (Exception $e) {
     http_response_code(404);
     exit;
@@ -24,7 +27,6 @@ try {
 $errorMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng'])) {
-    $pin = new Pin($pdo);
     try {
         $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
         $slug = $mapData['slug'];
@@ -39,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiw
 $view = [
     'bodyType' => 'half-screens',
     'mapData' => $mapData,
+    'pins' => $pins,
     'errorMessage' => $errorMessage,
 ];
 

@@ -48,7 +48,12 @@ $pinData = $view['pinData'];
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        let marker = L.marker([parseFloat(<?php echo $pinData['latitude']; ?>), parseFloat(<?php echo $pinData['longitude']; ?>)]).addTo(window.map);
+        const lat = parseFloat(<?php echo $pinData['latitude']; ?>);
+        const lng = parseFloat(<?php echo $pinData['longitude']; ?>);
+
+        // Initialize marker at the pin's location and center the view on it
+        let marker = window.leafletUtils.addMarker(lat, lng);
+        window.leafletUtils.setMapView(lat, lng, 13);
 
         window.map.on('click', function (e) {
             // Remove the existing marker
@@ -60,8 +65,10 @@ $pinData = $view['pinData'];
             document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
             document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
 
-            // Add a new marker at the clicked location
-            marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
+            // Add a new marker at the clicked location using window.leafletUtils
+            // and center the view on the new marker
+            marker = window.leafletUtils.addMarker(e.latlng.lat, e.latlng.lng);
+            window.leafletUtils.setMapView(e.latlng.lat, e.latlng.lng, 13);
         });
     });
 </script>

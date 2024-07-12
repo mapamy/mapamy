@@ -103,3 +103,5 @@ Then run webpack to build the assets:
 ```
 ddev exec npm run webpack
 ```
+
+That's it! You are ready to start developing on the project.

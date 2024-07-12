@@ -14,6 +14,27 @@ const mapamyMarker = L.icon({
 // Set mapamyMarker as the default icon for all markers
 L.Marker.prototype.options.icon = mapamyMarker;
 
+// Ensure the subobject exists
+window.leafletUtils = window.leafletUtils || {};
+
+// Assign functions to the subobject
+window.leafletUtils.addMarker = function(lat, lng, popupContent = '') {
+    const marker = L.marker([lat, lng]).addTo(window.map);
+    if (popupContent) {
+        marker.bindPopup(popupContent);
+    }
+    return marker;
+};
+
+window.leafletUtils.setMapView = function(lat, lng, zoom) {
+    window.map.setView([lat, lng], zoom);
+};
+
+window.leafletUtils.fitMapToMarkers = function(markerCoordinates) {
+    const bounds = L.latLngBounds(markerCoordinates);
+    window.map.fitBounds(bounds);
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set a map to the leaflet-map id div
     const map = L.map('leaflet-map').setView([51.505, -0.09], 13);

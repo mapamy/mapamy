@@ -50,6 +50,18 @@ class Pin
     }
 
     /**
+     * Gets all pins for a user.
+     * @param int $userId
+     * @return array
+     */
+    public function getPinsByUserId(int $userId): array
+    {
+        $stmt = $this->pdo->prepare('SELECT id, map_id, name, description, slug, ST_X(location::geometry) AS longitude, ST_Y(location::geometry) AS latitude FROM pins WHERE user_id = ?');
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Creates a new pin.
      * @param int $mapId
      * @param int $userId

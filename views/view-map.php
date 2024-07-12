@@ -36,17 +36,20 @@ if (!isset($view)) {
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const pins = <?php echo json_encode($view['pins']); ?>;
+        const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
+
         pins.forEach(pin => {
-            L.marker([pin.latitude, pin.longitude]).addTo(window.map)
-                .bindPopup(`<b>${pin.name}</b><br>${pin.description}`);
+            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br>${pin.description}`);
         });
+
+        window.leafletUtils.fitMapToMarkers(pinCoordinates);
 
         const pinListItems = document.querySelectorAll('li[data-lat][data-lng]');
         pinListItems.forEach(item => {
             item.addEventListener('click', () => {
                 const lat = item.getAttribute('data-lat');
                 const lng = item.getAttribute('data-lng');
-                window.map.setView([lat, lng], 13);
+                setMapView(lat, lng, 13);
             });
         });
     });
