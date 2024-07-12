@@ -14,6 +14,58 @@ class Map
     }
 
     /**
+     * Gets a map by its ID.
+     * @param int $id
+     * @return array|null
+     */
+    public function getMapById(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE id = ?');
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
+    /**
+     * Updates a map.
+     * @param string $slug
+     * @return array|null
+     */
+    public function getMapBySlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE slug = ?');
+        $stmt->execute([$slug]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
+    /**
+     * Gets all maps.
+     * @param string $slug
+     * @return array|null
+     */
+    public function getMapByPinSlug(string $slug): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.slug = ?');
+        $stmt->execute([$slug]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
+    /**
+     * Gets a map by a pin ID.
+     * @param int $id
+     * @return array|null
+     */
+    public function getMapByPinId(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.id = ?');
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
+    /**
      * Creates a new map.
      * @param int $userId
      * @param string $name
@@ -45,57 +97,10 @@ class Map
      * @param int $privacy
      * @return void
      */
-    public function updateMap(int $id, string $name, string $slug, string $description, string $wysiwyg, int $privacy)
+    public function updateMap(int $id, string $name, string $slug, string $description, string $wysiwyg, int $privacy): void
     {
         $stmt = $this->pdo->prepare('UPDATE maps SET name = ?, slug = ?, description = ?, wysiwyg = ?, privacy = ? WHERE id = ?');
         $stmt->execute([$name, $slug, $description, $wysiwyg, $privacy, $id]);
-    }
-
-    /**
-     * Updates a map.
-     * @param string $slug
-     * @return array|null
-     */
-    public function getMapBySlug(string $slug): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE slug = ?');
-        $stmt->execute([$slug]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $result !== false ? $result : null;
-    }
-
-    /**
-     * Gets a map by its ID.
-     * @param int $id
-     * @return array|null
-     */
-    public function getMapById(int $id): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM maps WHERE id = ?');
-        $stmt->execute([$id]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $result !== false ? $result : null;
-    }
-
-    /**
-     * Gets all maps.
-     * @param string $slug
-     * @return array|null
-     */
-    public function getMapByPinSlug(string $slug): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.slug = ?');
-        $stmt->execute([$slug]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $result !== false ? $result : null;
-    }
-
-    public function getMapByPinId(int $id): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.id = ?');
-        $stmt->execute([$id]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $result !== false ? $result : null;
     }
 
 }

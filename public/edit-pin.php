@@ -22,7 +22,7 @@ try {
     if (!$pinData) {
         throw new Exception("Pin not found");
     }
-    $mapData = $map->getMapById($pinData['map_id']);
+    $mapData = $map->getMapByPinId($_GET['id']);
 } catch (Exception $e) {
     http_response_code(404);
     echo "Pin or Map not found";
