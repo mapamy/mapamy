@@ -2,12 +2,12 @@
     font-family: $font-primary;
 
     .form-control {
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
         display: flex;
         flex-direction: column;
 
         label {
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
             font-weight: bold;
         }
 
@@ -16,9 +16,9 @@
         textarea,
         select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid $color-black;
-            border-radius: 4px;
+            padding: 1rem;
+            border: 0.1rem solid $color-black;
+            border-radius: 0.5rem;
             box-sizing: border-box;
 
             &:focus {
@@ -28,26 +28,10 @@
         }
     }
 
-    .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: $color-green;
-        color: $color-black;
-        border: none;
-        border-radius: 4px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-
-        &:hover {
-            background-color: darken($color-green, 10%);
-        }
-    }
-
     .form-feedback {
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 4px;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
         color: $color-black;
         background-color: $color-yellow;
         text-align: center;

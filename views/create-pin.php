@@ -4,8 +4,13 @@ if (!isset($view)) {
 }
 $mapData = $view['mapData'];
 ?>
-<div id="leaflet-map" class="map"></div>
 <div class="main">
+    <h1>Mapamy</h1>
+    <h2>Create pin</h2>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/m/<?php echo $mapData['slug']; ?>">Back to Map</a>
+    </nav>
     <?php
     if (isset($view['errorMessage'])) {
         echo '<p>' . $view['errorMessage'] . '</p>';
@@ -31,6 +36,7 @@ $mapData = $view['mapData'];
         <button type="submit" class="button">Create Pin</button>
     </form>
 </div>
+<div id="leaflet-map" class="map"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let marker;

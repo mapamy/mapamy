@@ -4,12 +4,19 @@ if (!isset($view)) {
 }
 $mapData = $view['mapData'];
 ?>
-<?php
-if (isset($view['errorMessage'])) {
-    echo '<p>' . $view['errorMessage'] . '</p>';
-}
-?>
 <main class="main">
+    <h1>Mapamy</h1>
+    <h2>Edit map</h2>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/m/<?php echo $mapData['slug']; ?>">Back to map</a>
+        <a href="/create-pin/<?php echo $mapData['id']; ?>">Add Pin</a>
+    </nav>
+    <?php
+    if (isset($view['errorMessage'])) {
+        echo '<p>' . $view['errorMessage'] . '</p>';
+    }
+    ?>
     <form method="post" class="form">
         <div class="form-control">
             <label for="name">Map Name</label>

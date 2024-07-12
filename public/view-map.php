@@ -1,14 +1,13 @@
 <?php
 
+use App\AssetManager;
 use App\Database;
 use App\Map;
 use App\Pin;
 
 // Add assets
-App\AssetManager::getInstance()->addScript('leaflet');
-App\AssetManager::getInstance()->addStyle('leaflet');
-
-$errorMessage = '';
+AssetManager::getInstance()->addScript('leaflet');
+AssetManager::getInstance()->addStyle('leaflet');
 
 if (!isset($_GET['slug'])) {
     http_response_code(404);
@@ -27,12 +26,11 @@ try {
     }
     $pins = $pin->getPinsByMapId($mapData['id']);
 } catch (Exception $e) {
-    $errorMessage = $e->getMessage();
+    exit($e->getMessage());
 }
 
 $view = [
     'bodyType' => 'half-screens',
-    'errorMessage' => $errorMessage,
     'mapData' => $mapData ?? null,
     'pins' => $pins ?? [],
     'isOwner' => isset($mapData) && $mapData['user_id'] === $_SESSION['user_id'],

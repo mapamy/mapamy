@@ -1,6 +1,6 @@
 <?php
 
-// Redirect to dashbaord if logged in
+// Redirect to dashboard if logged in
 if (isset($_SESSION['user_id'])) {
     header('Location: /dashboard');
     exit;

@@ -31,6 +31,9 @@ window.leafletUtils.setMapView = function(lat, lng, zoom) {
 };
 
 window.leafletUtils.fitMapToMarkers = function(markerCoordinates) {
+    if (markerCoordinates.length === 0) {
+        return;
+    }
     const bounds = L.latLngBounds(markerCoordinates);
     window.map.fitBounds(bounds);
 };

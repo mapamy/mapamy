@@ -4,6 +4,11 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
+    <h1>Mapamy</h1>
+    <h2>Login via email</h2>
+    <nav>
+        <a href="/">Home</a>
+    </nav>
     <?php
     if ($view['loginLinkSent']) {
         ?>

@@ -4,12 +4,12 @@ if (!isset($view)) {
 }
 ?>
 <div class="main">
-    <h1><?php echo $view['email']; ?></h1>
-    <ul>
-        <li><a href='<?php echo $view['baseUrl']; ?>/create-map'>Create a map</a></li>
-    </ul>
-
-    <h2>Maps</h2>
+    <h1>Mapamy</h1>
+    <h2>Dashboard</h2>
+    <nav>
+        <a href='<?php echo $view['baseUrl']; ?>/create-map'>Create a map</a>
+    </nav>
+    <h2>My maps</h2>
     <?php if (empty($view['maps'])) { ?>
         <p>You have no maps yet.</p>
     <?php } else { ?>

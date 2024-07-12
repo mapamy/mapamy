@@ -4,6 +4,11 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
+    <h1>Mapamy</h1>
+    <h2>Create map</h2>
+    <nav>
+        <a href="/">Home</a>
+    </nav>
     <?php
     if ($view['errorMessage']) {
         echo '<p>' . $view['errorMessage'] . '</p>';

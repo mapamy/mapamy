@@ -1,14 +1,15 @@
 <?php
 
+use App\AssetManager;
 use App\Database;
 use App\Map;
 use App\Pin;
 
 // Add assets
-App\AssetManager::getInstance()->addScript('leaflet');
-App\AssetManager::getInstance()->addScript('ckEditor');
-App\AssetManager::getInstance()->addStyle('leaflet');
-App\AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('leaflet');
+AssetManager::getInstance()->addScript('ckEditor');
+AssetManager::getInstance()->addStyle('leaflet');
+AssetManager::getInstance()->addStyle('ckEditor');
 
 $errorMessage = '';
 $pinData = [];
