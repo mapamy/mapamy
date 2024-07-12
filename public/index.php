@@ -45,6 +45,16 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         $_GET['id'] = $vars['id'];
         require 'edit-map.php';
     });
+    $r->addRoute('GET', '/edit-pin/{id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['id'] = $vars['id'];
+        require 'edit-pin.php';
+    });
+    $r->addRoute('POST', '/edit-pin/{id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['id'] = $vars['id'];
+        require 'edit-pin.php';
+    });
     $r->addRoute('GET', '/email-login', function () {
         require 'email-login.php';
     });
@@ -54,9 +64,6 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/email-login{params:.*}', function ($vars) {
         $_GET = array_merge($_GET, explode('/', $vars['params']));
         require 'email-login.php';
-    });
-    $r->addRoute('GET', '/google-login', function () {
-        require 'google-login.php';
     });
     $r->addRoute('GET', '/logout', function () {
         requiresLogin();
@@ -69,6 +76,9 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/p/{slug}', function ($vars) {
         $_GET['slug'] = $vars['slug'];
         require 'view-pin.php';
+    });
+    $r->addRoute('GET', '/google-login', function () {
+        require 'google-login.php';
     });
     $r->addRoute('GET', '/oauth-google-callback{params:.*}', function ($vars) {
         $_GET = array_merge($_GET, explode('/', $vars['params']));

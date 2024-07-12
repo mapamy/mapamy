@@ -90,4 +90,12 @@ class Map
         return $result !== false ? $result : null;
     }
 
+    public function getMapByPinId(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT maps.* FROM maps JOIN pins ON maps.id = pins.map_id WHERE pins.id = ?');
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result !== false ? $result : null;
+    }
+
 }
