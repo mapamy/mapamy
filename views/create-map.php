@@ -14,8 +14,8 @@ if ($view['errorMessage']) {
         <input type="text" name="name" id="name" required>
     </div>
     <div class="form-control">
-        <label for="wysiwyg">Content</label>
-        <textarea name="wysiwyg" id="wysiwyg"></textarea>
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
     </div>
     <div class="form-control">
         <label for="privacy">Privacy</label>

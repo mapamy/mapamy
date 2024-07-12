@@ -2,6 +2,7 @@
 if (!isset($view)) {
     exit('Data not passed to view');
 }
+$mapData = $view['mapData'];
 ?>
 <div id="leaflet-map" class="map"></div>
 <div class="main">
@@ -17,7 +18,7 @@ if (!isset($view)) {
         </div>
         <div class="form-control">
             <label for="wysiwyg">Content</label>
-            <textarea name="wysiwyg" id="wysiwyg"></textarea>
+            <textarea name="wysiwyg" id="wysiwyg" data-map-id="<?php echo $mapData['id']; ?>"></textarea>
         </div>
         <div class="form-control">
             <label for="lat">Latitude</label>
@@ -26,10 +27,6 @@ if (!isset($view)) {
         <div class="form-control">
             <label for="lng">Longitude</label>
             <input type="text" id="lng" name="lng">
-        </div>
-        <div class="form-control">
-            <label for="map">Map ID</label>
-            <input type="text" id="map" name="map" value="<?php echo $_GET['map']; ?>">
         </div>
         <button type="submit" class="button">Create Pin</button>
     </form>

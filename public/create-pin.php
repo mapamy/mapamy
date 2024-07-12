@@ -10,16 +10,23 @@ App\AssetManager::getInstance()->addScript('ckEditor');
 App\AssetManager::getInstance()->addStyle('leaflet');
 App\AssetManager::getInstance()->addStyle('ckEditor');
 
+$pdo = (new Database())->getConnection();
+$map = new Map($pdo);
+
+// Make sure this map exists
+try {
+    $mapData = $map->getMapById($_GET['id']);
+} catch (Exception $e) {
+    http_response_code(404);
+    exit;
+}
+
 $errorMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng'], $_POST['map'])) {
-    $pdo = (new Database())->getConnection();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng'])) {
     $pin = new Pin($pdo);
     try {
-        $pin->createPin($_POST['map'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
-        // Get the slug of this map
-        $map = new Map($pdo);
-        $mapData = $map->getMapById($_POST['map']);
+        $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
         $slug = $mapData['slug'];
         // Redirect to the map
         header("Location: /m/$slug");
@@ -31,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiw
 
 $view = [
     'bodyType' => 'half-screens',
+    'mapData' => $mapData,
     'errorMessage' => $errorMessage,
 ];
 

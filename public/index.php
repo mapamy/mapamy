@@ -1,28 +1,47 @@
 <?php
 require __DIR__ . '/../init.php';
 
+function requiresLogin(): void
+{
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /email-login');
+        exit;
+    }
+}
+
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '', function () {
         require 'welcome.php';
     });
     $r->addRoute('GET', '/dashboard', function () {
+        requiresLogin();
         require 'dashboard.php';
     });
     $r->addRoute('GET', '/create-map', function () {
+        requiresLogin();
         require 'create-map.php';
     });
     $r->addRoute('POST', '/create-map', function () {
+        requiresLogin();
         require 'create-map.php';
     });
-    $r->addRoute('GET', '/create-pin/{map:\d+}', function ($vars) {
-        $_GET['map'] = $vars['map'];
+    $r->addRoute('GET', '/create-pin/{id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['id'] = $vars['id'];
         require 'create-pin.php';
     });
-    $r->addRoute('POST', '/create-pin/{map:\d+}', function ($vars) {
-        $_GET['map'] = $vars['map'];
+    $r->addRoute('POST', '/create-pin/{id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['id'] = $vars['id'];
         require 'create-pin.php';
     });
     $r->addRoute('GET', '/edit-map/{id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['id'] = $vars['id'];
+        require 'edit-map.php';
+    });
+    $r->addRoute('POST', '/edit-map/{id:\d+}', function ($vars) {
+        requiresLogin();
         $_GET['id'] = $vars['id'];
         require 'edit-map.php';
     });
@@ -40,10 +59,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         require 'google-login.php';
     });
     $r->addRoute('GET', '/logout', function () {
+        requiresLogin();
         require 'logout.php';
-    });
-    $r->addRoute('GET', '/show-insta', function () {
-        require 'show-insta.php';
     });
     $r->addRoute('GET', '/m/{slug}', function ($vars) {
         $_GET['slug'] = $vars['slug'];
@@ -56,6 +73,17 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/oauth-google-callback{params:.*}', function ($vars) {
         $_GET = array_merge($_GET, explode('/', $vars['params']));
         require 'oauth/google-callback.php';
+    });
+    $r->addRoute('POST', '/upload-editor-image/{map_id:\d+}', function ($vars) {
+        requiresLogin();
+        $_GET['map_id'] = $vars['map_id'];
+        require 'upload-editor-image.php';
+    });
+    $r->addRoute('GET', '/image/{user_id:\d+}/{map_id:\d+}/{img_name}', function ($vars) {
+        $_GET['user_id'] = $vars['user_id'];
+        $_GET['map_id'] = $vars['map_id'];
+        $_GET['img_name'] = $vars['img_name'];
+        require 'serve-image.php';
     });
 });
 

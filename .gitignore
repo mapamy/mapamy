@@ -4,3 +4,4 @@
 /vendor/
 /public/dist/
 /public/.htaccess
+/uploads/*
