@@ -5,7 +5,9 @@ use App\Map;
 use App\Pin;
 
 // Add assets
+App\AssetManager::getInstance()->addScript('leaflet');
 App\AssetManager::getInstance()->addScript('ckEditor');
+App\AssetManager::getInstance()->addStyle('leaflet');
 App\AssetManager::getInstance()->addStyle('ckEditor');
 
 $errorMessage = '';
@@ -43,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['slug'
 }
 
 $view = [
+    'bodyType' => 'half-screens',
     'errorMessage' => $errorMessage,
     'pinData' => $pinData,
     'mapData' => $mapData,

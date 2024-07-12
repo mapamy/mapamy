@@ -30,20 +30,20 @@ $mapData = $view['mapData'];
         </div>
         <button type="submit" class="button">Create Pin</button>
     </form>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let marker;
-
-            window.map.on('click', (e) => {
-                document.getElementById('lat').value = e.latlng.lat;
-                document.getElementById('lng').value = e.latlng.lng;
-
-                if (marker) {
-                    window.map.removeLayer(marker);
-                }
-
-                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
-            })
-        });
-    </script>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let marker;
+
+        window.map.on('click', (e) => {
+            document.getElementById('lat').value = e.latlng.lat;
+            document.getElementById('lng').value = e.latlng.lng;
+
+            if (marker) {
+                window.map.removeLayer(marker);
+            }
+
+            marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(window.map);
+        })
+    });
+</script>
