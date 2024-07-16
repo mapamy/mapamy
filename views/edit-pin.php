@@ -5,8 +5,13 @@ if (!isset($view)) {
 $mapData = $view['mapData'];
 $pinData = $view['pinData'];
 ?>
-<div id="leaflet-map" class="map"></div>
 <div class="main">
+    <h1>Mapamy</h1>
+    <h2>Edit pin</h2>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/m/<?php echo $mapData['slug']; ?>">Back to map</a>
+    </nav>
     <?php
     if (isset($view['errorMessage'])) {
         echo '<p>' . $view['errorMessage'] . '</p>';
@@ -31,7 +36,7 @@ $pinData = $view['pinData'];
         <div class="form-control">
             <label for="wysiwyg">Content</label>
             <textarea name="wysiwyg" id="wysiwyg"
-                      data-map-id="<?php echo $mapData['id']; ?>"><?php echo $pinData['content'] ?? ''; ?></textarea>
+                      data-map-id="<?php echo $mapData['id']; ?>"><?php echo $pinData['wysiwyg'] ?? ''; ?></textarea>
         </div>
         <div class="form-group">
             <label for="latitude">Latitude</label>
@@ -46,6 +51,7 @@ $pinData = $view['pinData'];
         <button type="submit" class="button">Update Pin</button>
     </form>
 </div>
+<div id="leaflet-map" class="map"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const lat = parseFloat(<?php echo $pinData['latitude']; ?>);

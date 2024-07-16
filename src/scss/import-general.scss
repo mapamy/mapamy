@@ -1,7 +1,10 @@
 @import 'variables.scss';
 @import 'mixins.scss';
+@import 'defaults.scss';
 @import 'layout.scss';
 
-// Whatever
+// Components
 @import 'component.button.scss';
 @import 'component.form.scss';
+@import 'component.navigation.scss';
+@import 'component.pin-grid.scss';

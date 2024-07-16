@@ -1,11 +1,12 @@
 <?php
 
+use App\AssetManager;
 use App\Database;
 use App\Map;
 
 // Add assets
-App\AssetManager::getInstance()->addScript('ckEditor');
-App\AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('ckEditor');
+AssetManager::getInstance()->addStyle('ckEditor');
 
 $errorMessage = '';
 $mapData = [];

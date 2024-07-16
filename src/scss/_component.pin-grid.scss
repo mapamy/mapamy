@@ -1,0 +1,19 @@
+.pin-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .pin-grid__pin {
+    background-color: $color-blue;
+    color: $color-white;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $color-purple;
+    }
+  }
+}

@@ -1,14 +1,17 @@
 <?php
 
+use App\AssetManager;
 use App\Database;
 use App\Map;
 use App\Pin;
+use App\Utils;
 
 // Add assets
-App\AssetManager::getInstance()->addScript('leaflet');
-App\AssetManager::getInstance()->addScript('ckEditor');
-App\AssetManager::getInstance()->addStyle('leaflet');
-App\AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('leaflet');
+AssetManager::getInstance()->addStyle('leaflet');
+AssetManager::getInstance()->addScript('ckEditor');
+AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('https://www.google.com/recaptcha/api.js');
 
 $pdo = (new Database())->getConnection();
 $map = new Map($pdo);
@@ -26,15 +29,19 @@ try {
 
 $errorMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng'])) {
-    try {
-        $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
-        $slug = $mapData['slug'];
-        // Redirect to the map
-        header("Location: /m/$slug");
-        exit;
-    } catch (Exception $e) {
-        $errorMessage = $e->getMessage();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']) && isset($_POST['g-recaptcha-response'])) {
+    if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
+        $errorMessage = 'Recaptcha verification failed';
+    } else {
+        try {
+            $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
+            $slug = $mapData['slug'];
+            // Redirect to the map
+            header("Location: /m/$slug");
+            exit;
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+        }
     }
 }
 

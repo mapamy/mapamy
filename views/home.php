@@ -4,6 +4,8 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
+    <h1>Mapamy</h1>
+    <h2>Welcome!</h2>
     <p>You need to login:</p>
     <ul>
         <li><a href='<?php echo $view['baseUrl']; ?>/google-login'>Access with Google</a>: Login using your Google

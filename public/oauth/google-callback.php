@@ -23,7 +23,7 @@ try {
     $User->updateUserToken($user_data['id'], $token);
 
     $_SESSION['user_id'] = $user_data['id'];
-    header('Location: /dashboard.php');
+    header('Location: /dashboard');
     exit;
 } catch (Exception $e) {
     exit('Failed to authenticate with Google: ' . $e->getMessage());

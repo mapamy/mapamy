@@ -84,7 +84,9 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         require 'google-login.php';
     });
     $r->addRoute('GET', '/oauth-google-callback{params:.*}', function ($vars) {
-        $_GET = array_merge($_GET, explode('/', $vars['params']));
+        $queryString = ltrim($vars['params'], '?');
+        parse_str($queryString, $paramsArray);
+        $_GET = array_merge($_GET, $paramsArray);
         require 'oauth/google-callback.php';
     });
 });

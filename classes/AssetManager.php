@@ -48,7 +48,8 @@ class AssetManager
     public function printScripts(): void
     {
         foreach ($this->scripts as $name) {
-            echo '<script src="/dist/' . $name . '.js"></script>';
+            echo '<script src="' . $this->generateUrl($name, '.js') . '"></script>';
+
         }
     }
 
@@ -59,7 +60,22 @@ class AssetManager
     public function printStyles(): void
     {
         foreach ($this->styles as $name) {
-            echo '<link rel="stylesheet" href="/dist/' . $name . '.css"/>';
+            echo '<link rel="stylesheet" href="' . $this->generateUrl($name, '.css') . '">';
+        }
+    }
+
+    /**
+     * Generates the URL depending on the name.
+     * @param string $name
+     * @param string $suffix
+     * @return string
+     */
+    public function generateUrl(string $name, string $suffix): string
+    {
+        if (str_starts_with($name, 'https://')) {
+            return $name;
+        } else {
+            return '/dist/' . $name . $suffix;
         }
     }
 }

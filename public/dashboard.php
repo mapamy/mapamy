@@ -1,13 +1,14 @@
 <?php
 
+use App\AssetManager;
 use App\Database;
 use App\User;
 use App\Map;
 use App\Pin;
 
 // Add assets
-App\AssetManager::getInstance()->addScript('leaflet');
-App\AssetManager::getInstance()->addStyle('leaflet');
+AssetManager::getInstance()->addScript('leaflet');
+AssetManager::getInstance()->addStyle('leaflet');
 
 $pdo = (new Database())->getConnection();
 $User = new User($pdo);

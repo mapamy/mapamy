@@ -4,6 +4,11 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
+    <h1>Mapamy</h1>
+    <h2>Create map</h2>
+    <nav>
+        <a href="/">Home</a>
+    </nav>
     <?php
     if ($view['errorMessage']) {
         echo '<p>' . $view['errorMessage'] . '</p>';
@@ -25,6 +30,9 @@ if (!isset($view)) {
                 <option value="2">Link only</option>
                 <option value="3">Private</option>
             </select>
+        </div>
+        <div class="form-control">
+            <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
         </div>
         <button type="submit" class="button">Create Map</button>
     </form>
