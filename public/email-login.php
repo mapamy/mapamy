@@ -3,28 +3,39 @@
 use App\Database;
 use App\User;
 use App\Email;
+use App\AssetManager;
+use App\Utils;
 
 if (isset($_SESSION['user_id'])) {
     header('Location: /dashboard');
     exit;
 }
 
+// Add assets
+AssetManager::getInstance()->addScript('https://www.google.com/recaptcha/api.js');
+
 $pdo = (new Database())->getConnection();
 $User = new User($pdo);
 $errorMessage = '';
 $loginLinkSent = false;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-    $email = $_POST['email'];
-    $user = $User->findOrCreateUser($email);
-    $token = $User->updateUserToken($user['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['g-recaptcha-response'])) {
+    // Check if the recaptcha token is valid
+    if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
+        $errorMessage = 'Recaptcha verification failed';
+    }else {
+        // Find or create the user and send login link
+        $email = $_POST['email'];
+        $user = $User->findOrCreateUser($email);
+        $token = $User->updateUserToken($user['id']);
 
-    // Send the email with the login link
-    $emailClass = new Email();
-    $subject = 'Login Link';
-    $body = 'Click on the following link to log in: ' . $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
-    $emailClass->sendEmail($email, $subject, $body);
-    $loginLinkSent = true;
+        // Send the email with the login link
+        $emailClass = new Email();
+        $subject = 'Login Link';
+        $body = 'Click on the following link to log in: ' . $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
+        $emailClass->sendEmail($email, $subject, $body);
+        $loginLinkSent = true;
+    }
 } elseif (isset($_GET['email']) && isset($_GET['token'])) {
     $email = urldecode($_GET['email']);
     $token = urldecode($_GET['token']);

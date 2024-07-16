@@ -33,6 +33,9 @@ $mapData = $view['mapData'];
             <label for="lng">Longitude</label>
             <input type="text" id="lng" name="lng">
         </div>
+        <div class="form-control">
+            <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
+        </div>
         <button type="submit" class="button">Create Pin</button>
     </form>
 </div>
