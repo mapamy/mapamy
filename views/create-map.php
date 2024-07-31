@@ -26,7 +26,7 @@ if (!isset($view)) {
             <textarea name="description" id="description"></textarea>
         </div>
         <div class="form-control">
-            <label for="privacy"> __('Privacy') ?></label>
+            <label for="privacy"><?= __('Privacy') ?></label>
             <select id="privacy" name="privacy">
                 <option value="1"><?= __('Public') ?></option>
                 <option value="2"><?= __('Link only') ?></option>

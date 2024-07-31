@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
+}
+
+body {
   color: $color-white;
 }
 
@@ -59,4 +62,8 @@ figure, img {
 
 img {
   height: auto;
+}
+
+input, textarea {
+  color: $color-black;
 }

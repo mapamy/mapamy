@@ -123,6 +123,14 @@ class Map
      */
     public function updateMap(int $id, string $name, string $slug, string $description, string $wysiwyg, int $privacy): void
     {
+        // Check if slug is already in use
+        $stmt = $this->pdo->prepare('SELECT id FROM maps WHERE slug = ? AND id != ?');
+        $stmt->execute([$slug, $id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ($result !== false) {
+            $slug .= '-' . uniqid();
+        }
+        // Update the map
         $stmt = $this->pdo->prepare('UPDATE maps SET name = ?, slug = ?, description = ?, wysiwyg = ?, privacy = ? WHERE id = ?');
         $stmt->execute([$name, $slug, $description, $wysiwyg, $privacy, $id]);
     }
