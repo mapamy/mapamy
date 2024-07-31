@@ -3,11 +3,17 @@ require __DIR__ . '/../init.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '', function () {
-        require 'welcome.php';
+        require 'home.php';
     });
     $r->addRoute('GET', '/dashboard', function () {
         thisRouteRequiresLogin();
         require 'dashboard.php';
+    });
+    $r->addRoute('GET', '/privacy', function () {
+        require 'privacy.php';
+    });
+    $r->addRoute('GET', '/terms', function () {
+        require 'terms.php';
     });
     $r->addRoute('GET', '/create-map', function () {
         thisRouteRequiresLogin();
