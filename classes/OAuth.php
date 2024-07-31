@@ -12,7 +12,7 @@ class OAuth
      * Returns a Google provider.
      * @return Google
      */
-    public static function getGoogleProvider()
+    public static function getGoogleProvider(): Google
     {
         return new Google([
             'clientId' => $_ENV['GOOGLE_CLIENT_ID'],
@@ -21,16 +21,4 @@ class OAuth
         ]);
     }
 
-    /**
-     * Returns an Instagram provider.
-     * @return Instagram
-     */
-    public static function getInstagramProvider()
-    {
-        return new Instagram([
-            'clientId' => $_ENV['INSTAGRAM_CLIENT_ID'],
-            'clientSecret' => $_ENV['INSTAGRAM_CLIENT_SECRET'],
-            'redirectUri' => $_ENV['INSTAGRAM_REDIRECT_URI'],
-        ]);
-    }
 }

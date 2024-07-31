@@ -1,0 +1,32 @@
+.site-header {
+  position: relative;
+  margin-bottom: 2rem;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+
+    img {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    span {
+      font-family: 'Anton_SC', sans-serif;
+      font-weight: 100;
+      letter-spacing: 0.2rem;
+      font-size: 2.7rem;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      transition: text-decoration-color 0.3s;
+    }
+  }
+
+  a:hover span {
+    text-decoration-color: $color-orange;
+  }
+
+}

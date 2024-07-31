@@ -31,7 +31,7 @@ $errorMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']) && isset($_POST['g-recaptcha-response'])) {
     if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
-        $errorMessage = 'Recaptcha verification failed';
+        $errorMessage = __('Recaptcha verification failed');
     } else {
         try {
             $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);

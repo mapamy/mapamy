@@ -27,6 +27,18 @@ class Map
     }
 
     /**
+     * Gets a list of random maps.
+     * @param int $amount
+     * @return array
+     */
+    public function getRandomMaps(int $amount = 10): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM maps ORDER BY RANDOM() LIMIT ?');
+        $stmt->execute([$amount]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Updates a map.
      * @param string $slug
      * @return array|null

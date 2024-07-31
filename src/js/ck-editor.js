@@ -57,7 +57,7 @@ const editorConfig = {
             'heading',
             'style',
             '|',
-            'imageUpload', // Add this line
+            'imageUpload',
             '|',
             'fontSize',
             'fontFamily',

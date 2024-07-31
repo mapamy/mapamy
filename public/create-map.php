@@ -14,7 +14,7 @@ $errorMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['description']) && isset($_POST['g-recaptcha-response'])) {
     if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
-        $errorMessage = 'Recaptcha verification failed';
+        $errorMessage = __('Recaptcha verification failed');
     } else {
         $pdo = (new Database())->getConnection();
         $map = new Map($pdo);

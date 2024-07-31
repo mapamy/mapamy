@@ -22,7 +22,7 @@ $loginLinkSent = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['g-recaptcha-response'])) {
     // Check if the recaptcha token is valid
     if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
-        $errorMessage = 'Recaptcha verification failed';
+        $errorMessage = __('Recaptcha verification failed');
     }else {
         // Find or create the user and send login link
         $email = $_POST['email'];
@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
 
         // Send the email with the login link
         $emailClass = new Email();
-        $subject = 'Login Link';
-        $body = 'Click on the following link to log in: ' . $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
+        $subject = __('Login Link');
+        $body = __('Use the following link to log in:') . $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
         $emailClass->sendEmail($email, $subject, $body);
         $loginLinkSent = true;
     }
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         header('Location: /dashboard');
         exit;
     } else {
-        $errorMessage = 'Invalid login link';
+        $errorMessage = __('Invalid login link');
     }
 }
 

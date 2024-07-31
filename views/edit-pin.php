@@ -6,11 +6,12 @@ $mapData = $view['mapData'];
 $pinData = $view['pinData'];
 ?>
 <div class="main">
-    <h1>Mapamy</h1>
-    <h2>Edit pin</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Edit pin') ?></h2>
     <nav>
-        <a href="/">Home</a>
-        <a href="/m/<?php echo $mapData['slug']; ?>">Back to map</a>
+        <a href="/m/<?php echo $mapData['slug']; ?>"><?= __('Back to map') ?></a>
     </nav>
     <?php
     if (isset($view['errorMessage'])) {
@@ -19,7 +20,7 @@ $pinData = $view['pinData'];
     ?>
     <form method="post" class="form">
         <div class="form-control">
-            <label for="name">Pin Name</label>
+            <label for="name"><?= __('Pin name') ?></label>
             <input type="text" id="name" name="name" required
                    value="<?php echo htmlspecialchars($pinData['name'] ?? ''); ?>">
         </div>
@@ -29,26 +30,26 @@ $pinData = $view['pinData'];
                    value="<?php echo htmlspecialchars($pinData['slug'] ?? ''); ?>">
         </div>
         <div class="form-control">
-            <label for="description">Description</label>
+            <label for="description"><?= __('Description') ?></label>
             <textarea name="description"
                       id="description"><?php echo htmlspecialchars($pinData['description'] ?? ''); ?></textarea>
         </div>
         <div class="form-control">
-            <label for="wysiwyg">Content</label>
+            <label for="wysiwyg"><?= __('Content') ?></label>
             <textarea name="wysiwyg" id="wysiwyg"
                       data-map-id="<?php echo $mapData['id']; ?>"><?php echo $pinData['wysiwyg'] ?? ''; ?></textarea>
         </div>
         <div class="form-group">
-            <label for="latitude">Latitude</label>
+            <label for="latitude"><?= __('Latitude') ?>'</label>
             <input type="text" id="latitude" name="latitude" required
                    value="<?php echo htmlspecialchars($pinData['latitude'] ?? ''); ?>">
         </div>
         <div class="form-group">
-            <label for="longitude">Longitude</label>
+            <label for="longitude"><?= __('Longitude') ?></label>
             <input type="text" id="longitude" name="longitude" required
                    value="<?php echo htmlspecialchars($pinData['longitude'] ?? ''); ?>">
         </div>
-        <button type="submit" class="button">Update Pin</button>
+        <button type="submit" class="button"><?= __('Update pin') ?></button>
     </form>
 </div>
 <div id="leaflet-map" class="map"></div>

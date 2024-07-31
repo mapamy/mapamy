@@ -3,11 +3,17 @@ require __DIR__ . '/../init.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '', function () {
-        require 'welcome.php';
+        require 'home.php';
     });
     $r->addRoute('GET', '/dashboard', function () {
         thisRouteRequiresLogin();
         require 'dashboard.php';
+    });
+    $r->addRoute('GET', '/privacy', function () {
+        require 'privacy.php';
+    });
+    $r->addRoute('GET', '/terms', function () {
+        require 'terms.php';
     });
     $r->addRoute('GET', '/create-map', function () {
         thisRouteRequiresLogin();
@@ -79,6 +85,10 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/p/{slug}', function ($vars) {
         $_GET['slug'] = $vars['slug'];
         require 'view-pin.php';
+    });
+    $r->addRoute('GET', '/lang/{language}', function ($vars) {
+        $_GET['language'] = $vars['language'];
+        require 'set-language.php';
     });
     $r->addRoute('GET', '/google-login', function () {
         require 'google-login.php';
