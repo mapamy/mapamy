@@ -42,6 +42,7 @@ try {
 
 $view = [
     'bodyType' => 'half-screens',
+    'pageTitle' => $pinData['name'],
     'pinData' => $pinData ?? null,
     'mapData' => $mapData ?? null,
 ];

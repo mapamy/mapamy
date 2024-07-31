@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['slug'
 
 $view = [
     'bodyType' => 'half-screens',
+    'pageTitle' => __('Edit pin'),
     'errorMessage' => $errorMessage,
     'pinData' => $pinData,
     'mapData' => $mapData,

@@ -1,5 +1,6 @@
 <?php
 return [
+    'Discover and share places' => 'Descubre y comparte lugares',
     'Access' => 'Acceso',
     'Map' => 'Mapa',
     'Maps' => 'Mapas',
@@ -41,4 +42,6 @@ return [
     'With email' => 'Con correo electrónico',
     'Link' => 'Enlace',
     'View pin' => 'Ver pin',
+    'Privacy Policy' => 'Política de privacidad',
+    'Terms and Conditions' => 'Términos y Condiciones',
 ];
