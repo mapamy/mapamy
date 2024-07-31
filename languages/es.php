@@ -1,5 +1,6 @@
 <?php
 return [
+    'Discover and share places' => 'Descubre y comparte lugares',
     'Access' => 'Acceso',
     'Map' => 'Mapa',
     'Maps' => 'Mapas',
