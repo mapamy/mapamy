@@ -1,3 +1,5 @@
+// webpack.config.js
+
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const cssnano = require('cssnano');
@@ -62,11 +64,12 @@ module.exports = (env, argv) => {
             {
               loader: 'postcss-loader',
               options: {
-                ident: 'postcss',
-                plugins: [
-                  autoprefixer({}),
-                  ...(argv.mode === 'production' ? [cssnano({preset: 'default'})] : [])
-                ],
+                postcssOptions: {
+                  plugins: [
+                    autoprefixer({}),
+                    ...(argv.mode === 'production' ? [cssnano({preset: 'default'})] : [])
+                  ],
+                },
                 sourceMap: true,
               },
             },
@@ -81,6 +84,18 @@ module.exports = (env, argv) => {
               },
             },
           ],
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'fonts/'
+              }
+            }
+          ]
         }
       ],
     },

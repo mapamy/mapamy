@@ -33,7 +33,7 @@ $view = [
     'bodyType' => 'half-screens',
     'mapData' => $mapData ?? null,
     'pins' => $pins ?? [],
-    'isOwner' => isset($mapData) && $mapData['user_id'] === $_SESSION['user_id'],
+    'isOwner' => isset($mapData) && isset($_SESSION['user_id']) && $mapData['user_id'] === $_SESSION['user_id'],
 ];
 
 // View
