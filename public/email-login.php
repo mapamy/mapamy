@@ -32,7 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         // Send the email with the login link
         $emailClass = new Email();
         $subject = __('Login Link');
-        $body = __('Use the following link to log in:') . $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
+        $loginLink = $_ENV['BASE_URL'] . '/email-login?email=' . urlencode($email) . '&token=' . urlencode($token);
+        $body = '
+        <p>' . __('Use the following link to log in:') . '</p>
+        <p><a href="' . $loginLink . '">' . $loginLink . '</a></p>';
         $emailClass->sendEmail($email, $subject, $body);
         $loginLinkSent = true;
     }
@@ -45,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     if ($user && hash_equals($user['token'], $token)) {
         // Log in the user
         $_SESSION['user_id'] = $user['id'];
+        // Update user token
+        $User->updateUserToken($user['id']);
         header('Location: /dashboard');
         exit;
     } else {

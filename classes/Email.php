@@ -61,7 +61,7 @@ class Email
         <h1>Mapamy</h1>';
         $footer = '
         <hr>
-        <p>mapamy.com</p></body></html>';
+        <p>Mapamy - ' . __('Discover and share places') . '!</p></body></html>';
 
         return $header . $body . $footer;
     }
