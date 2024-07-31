@@ -42,4 +42,6 @@ return [
     'With email' => 'Avec email',
     'Link' => 'Lien',
     'View pin' => 'Voir l\'épingle',
+    'Privacy Policy' => 'Politique de confidentialité',
+    'Terms and Conditions' => 'Conditions générales',
 ];

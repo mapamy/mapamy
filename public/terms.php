@@ -1,5 +1,7 @@
 <?php
-$view = [];
+$view = [
+    'pageTitle' => __('Terms and Conditions'),
+];
 
 // Load the home view
 include __DIR__ . '/../views/header.php';

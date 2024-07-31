@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['descr
 
 $view = [
     'errorMessage' => $errorMessage,
+    'pageTitle' => __('Create map'),
 ];
 
 // View

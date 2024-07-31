@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
 
 // View
 $view = [
+    'pageTitle' => __('Login via email'),
     'loginLinkSent' => $loginLinkSent,
     'errorMessage' => $errorMessage,
 ];

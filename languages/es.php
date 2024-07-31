@@ -42,4 +42,6 @@ return [
     'With email' => 'Con correo electrónico',
     'Link' => 'Enlace',
     'View pin' => 'Ver pin',
+    'Privacy Policy' => 'Política de privacidad',
+    'Terms and Conditions' => 'Términos y Condiciones',
 ];

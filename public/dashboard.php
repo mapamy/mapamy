@@ -24,6 +24,7 @@ $pins = $Pin->getPinsByUserId($_SESSION['user_id']);
 
 $view = [
     'bodyType' => 'half-screens',
+    'pageTitle' => __('Dashboard'),
     'baseUrl' => $_ENV['BASE_URL'],
     'email' => htmlspecialchars($user['email']),
     'maps' => $maps,

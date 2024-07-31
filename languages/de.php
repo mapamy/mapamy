@@ -42,4 +42,6 @@ return [
     'With email' => 'Mit E-Mail',
     'Link' => 'Link',
     'View pin' => 'Stecknadel anzeigen',
+    'Privacy Policy' => 'Datenschutzbestimmungen',
+    'Terms and Conditions' => 'Geschäftsbedingungen',
 ];

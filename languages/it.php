@@ -42,4 +42,6 @@ return [
     'With email' => 'Con email',
     'Link' => 'Link',
     'View pin' => 'Visualizza spillo',
+    'Privacy Policy' => 'Informativa sulla privacy',
+    'Terms and Conditions' => 'Termini e condizioni',
 ];
