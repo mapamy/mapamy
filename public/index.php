@@ -86,6 +86,10 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         $_GET['slug'] = $vars['slug'];
         require 'view-pin.php';
     });
+    $r->addRoute('GET', '/lang/{language}', function ($vars) {
+        $_GET['language'] = $vars['language'];
+        require 'set-language.php';
+    });
     $r->addRoute('GET', '/google-login', function () {
         require 'google-login.php';
     });

@@ -4,14 +4,16 @@ if (!isset($view)) {
 }
 ?>
 <div class="main">
-    <h1>Mapamy</h1>
-    <h2>Map: <?php echo $view['mapData']['name']; ?></h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Map') ?> <?php echo $view['mapData']['name']; ?></h2>
     <nav>
-        <a href="/">Home</a>
+        <a href="/"><?= __('Back home') ?></a>
     <?php
     if ($view['isOwner']) {
-        echo '<a href="/edit-map/' . $view['mapData']['id'] . '">Edit Map</a>';
-        echo '<a href="/create-pin/' . $view['mapData']['id'] . '">Add Pin</a>';
+        echo '<a href="/edit-map/' . $view['mapData']['id'] . '">' . __('Edit map') . '</a>';
+        echo '<a href="/create-pin/' . $view['mapData']['id'] . '">' . __('Add pin')  . '</a>';
     }
     ?>
     </nav>
@@ -19,7 +21,7 @@ if (!isset($view)) {
         <meta itemprop="name" content="<?php echo $view['mapData']['name']; ?>">
         <meta itemprop="description" content="<?php echo $view['mapData']['description']; ?>">
         <div itemprop="hasMap" itemscope itemtype="https://schema.org/Place">
-            <h3>Pins</h3>
+            <h3><?= __('Pins') ?></h3>
             <ul class="pin-grid">
                 <?php foreach ($view['pins'] as $pin): ?>
                     <li class="pin-grid__pin" data-lat="<?php echo $pin['latitude']; ?>" data-lng="<?php echo $pin['longitude']; ?>">
@@ -43,7 +45,7 @@ if (!isset($view)) {
         const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
 
         pins.forEach(pin => {
-            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br>Link: <a href="/p/${pin.slug}">View Pin</a>`);
+            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br><?= __('Link') ?>: <a href="/p/${pin.slug}"><?= __('View pin') ?></a>`);
         });
 
         window.leafletUtils.fitMapToMarkers(pinCoordinates);

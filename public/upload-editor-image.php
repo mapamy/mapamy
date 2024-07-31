@@ -43,7 +43,7 @@ if (isset($_FILES['upload'])) {
             echo json_encode(['error' => 'Error processing image: ' . $e->getMessage()]);
         }
     } else {
-        echo json_encode(['error' => 'Invalid file type.']);
+        echo json_encode(['error' => __('Invalid file type')]);
     }
 } else {
     echo json_encode(['error' => 'No file uploaded.']);

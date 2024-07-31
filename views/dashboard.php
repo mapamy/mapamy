@@ -4,14 +4,16 @@ if (!isset($view)) {
 }
 ?>
 <div class="main">
-    <h1>Mapamy</h1>
-    <h2>Dashboard</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Dashboard') ?></h2>
     <nav>
-        <a href='<?php echo $view['baseUrl']; ?>/create-map'>Create a map</a>
+        <a href='<?php echo $view['baseUrl']; ?>/create-map'><?= __('Create map') ?></a>
     </nav>
-    <h2>My maps</h2>
+    <h2><?= __('My maps') ?></h2>
     <?php if (empty($view['maps'])) { ?>
-        <p>You have no maps yet.</p>
+        <p><?= __('You have no maps yet') ?></p>
     <?php } else { ?>
         <ul>
             <?php foreach ($view['maps'] as $map) { ?>

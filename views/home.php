@@ -4,21 +4,23 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
-    <h1>Mapamy</h1>
-    <h2>Access</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Access') ?></h2>
     <ul>
-        <li><a href='<?php echo $view['baseUrl']; ?>/google-login'>With Google</a>
+        <li><a href='<?php echo $view['baseUrl']; ?>/google-login'><?= __('With Google') ?></a>
         </li>
-        <li><a href='<?php echo $view['baseUrl']; ?>/email-login'>With email</a></li>
+        <li><a href='<?php echo $view['baseUrl']; ?>/email-login'><?= __('With email') ?></a></li>
     </ul>
-    <h2>Random maps</h2>
+    <h2><?= __('Random maps') ?></h2>
     <ul>
         <?php
         foreach ($view['maps'] as $map) {
             echo "<li><a href='{$view['baseUrl']}/m/{$map['slug']}'>{$map['name']}</a></li>";
         }
         ?>
-    <?php
-    include __DIR__ . '/partials/legal.php';
-    ?>
+        <?php
+        include __DIR__ . '/partials/site-footer.php';
+        ?>
 </main>

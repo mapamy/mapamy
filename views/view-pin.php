@@ -4,12 +4,14 @@ if (!isset($view)) {
 }
 ?>
 <div class="main">
-    <h1>Mapamy</h1>
-    <h2>Pin: <?php echo $view['pinData']['name']; ?></h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Pin') ?>: <?php echo $view['pinData']['name']; ?></h2>
     <nav>
-        <a href="/">Home</a>
-        <a href="/edit-pin/<?php echo $view['pinData']['id']; ?>">Edit pin</a>
-        <a href="/m/<?php echo $view['mapData']['slug']; ?>">Back to map</a>
+        <a href="/"><?= __('Back home') ?></a>
+        <a href="/edit-pin/<?php echo $view['pinData']['id']; ?>"><?= __('Edit pin') ?></a>
+        <a href="/m/<?php echo $view['mapData']['slug']; ?>"><?= __('Back to map') ?></a>
     </nav>
     <h1><?php echo $view['pinData']['name']; ?></h1>
     <div itemscope itemtype="https://schema.org/Map">

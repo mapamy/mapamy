@@ -1,6 +1,8 @@
 <main class="main">
-    <h1>Privacy Policy</h1>
-    <h2>Last Update on July 31st 2024</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2>Privacy Policy</h2>
 
     <h3>Introduction</h3>
     <p>We value your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you use our platform to add maps and pins, including descriptions and images. It will also inform you of your privacy rights and how the law protects you.</p>
@@ -50,4 +52,5 @@
     <h3>Contact Us</h3>
     <p>If you have any questions about this privacy policy or our privacy practices, please contact us at:</p>
     <p>Email: info@mapamy.com</p>
+    <p>Last Update on July 31st 2024</p>
 </main>

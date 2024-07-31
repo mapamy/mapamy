@@ -4,15 +4,17 @@ if (!isset($view)) {
 }
 ?>
 <main class="main">
-    <h1>Mapamy</h1>
-    <h2>Login via email</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Login via email') ?></h2>
     <nav>
-        <a href="/">Home</a>
+        <a href="/"><?= __('Cancel') ?></a>
     </nav>
     <?php
     if ($view['loginLinkSent']) {
         ?>
-        <p>An email has been sent with a login link. Click on the link to log in.</p>
+        <p><?= __('An email has been sent with a login link. Click on the link to log in') ?>.</p>
         <?php
     } else {
         if ($view['errorMessage']) {
@@ -21,14 +23,14 @@ if (!isset($view)) {
         ?>
         <form method="post" class="form">
             <div class="form-control">
-                <label for="email">Email</label>
+                <label for="email"><?= __('Email') ?></label>
                 <input type="email" name="email" id="email" required>
             </div>
             <div class="form-control">
                 <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
             </div>
             <div class="form-control">
-                <button type="submit" class="button">Send me a login link</button>
+                <button type="submit" class="button"><?= __('Send me a login link') ?></button>
             </div>
         </form>
         <?php

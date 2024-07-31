@@ -1,4 +1,5 @@
 <?php
+
 use App\AssetManager;
 
 if (!isset($view)) {
@@ -8,6 +9,9 @@ if (!isset($view)) {
 <html>
 <head>
     <title>Mapamy</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/dist/mapamy-icon.png">
     <link rel="stylesheet" href="/dist/style.css">
     <?php
     AssetManager::getInstance()->printStyles();

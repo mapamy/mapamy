@@ -4,6 +4,10 @@
 @import 'defaults.scss';
 @import 'layout.scss';
 
+// Partials
+@import 'site-header.scss';
+@import 'site-footer.scss';
+
 // Components
 @import 'component.button.scss';
 @import 'component.form.scss';

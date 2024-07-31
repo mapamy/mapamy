@@ -5,11 +5,12 @@ if (!isset($view)) {
 $mapData = $view['mapData'];
 ?>
 <div class="main">
-    <h1>Mapamy</h1>
-    <h2>Create pin</h2>
+    <?php
+    include __DIR__ . '/partials/site-header.php';
+    ?>
+    <h2><?= __('Create pin') ?></h2>
     <nav>
-        <a href="/">Home</a>
-        <a href="/m/<?php echo $mapData['slug']; ?>">Back to Map</a>
+        <a href="/m/<?php echo $mapData['slug']; ?>"><?= __('Back to map') ?></a>
     </nav>
     <?php
     if (isset($view['errorMessage'])) {
@@ -18,25 +19,25 @@ $mapData = $view['mapData'];
     ?>
     <form method="post" class="form">
         <div class="form-control">
-            <label for="name">Pin Name</label>
+            <label for="name"><?= __('Pin name') ?></label>
             <input type="text" id="name" name="name" required>
         </div>
         <div class="form-control">
-            <label for="wysiwyg">Content</label>
+            <label for="wysiwyg"><?= __('Description') ?></label>
             <textarea name="wysiwyg" id="wysiwyg" data-map-id="<?php echo $mapData['id']; ?>"></textarea>
         </div>
         <div class="form-control">
-            <label for="lat">Latitude</label>
+            <label for="lat"><?= __('Latitude') ?></label>
             <input type="text" id="lat" name="lat">
         </div>
         <div class="form-control">
-            <label for="lng">Longitude</label>
+            <label for="lng"><?= __('Longitude') ?></label>
             <input type="text" id="lng" name="lng">
         </div>
         <div class="form-control">
             <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
         </div>
-        <button type="submit" class="button">Create Pin</button>
+        <button type="submit" class="button"><?= __('Create pin') ?></button>
     </form>
 </div>
 <div id="leaflet-map" class="map"></div>
