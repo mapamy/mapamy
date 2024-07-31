@@ -40,7 +40,7 @@ window.leafletUtils.fitMapToMarkers = function(markerCoordinates) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Set a map to the leaflet-map id div
-    const map = L.map('leaflet-map').setView([51.505, -0.09], 13);
+    const map = L.map('leaflet-map').setView([0, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
     }).addTo(map);
