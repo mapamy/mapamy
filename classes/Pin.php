@@ -92,6 +92,14 @@ class Pin
      */
     public function updatePin(int $id, string $name, string $slug, string $description, string $wysiwyg, float $latitude, float $longitude): bool
     {
+        // Check if slug is already in use
+        $stmt = $this->pdo->prepare('SELECT id FROM pins WHERE slug = ? AND id != ?');
+        $stmt->execute([$slug, $id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ($result !== false) {
+            $slug .= '-' . uniqid();
+        }
+        // Update the pin
         $stmt = $this->pdo->prepare('UPDATE pins SET name = ?, slug = ?, description = ?, wysiwyg = ?, location = ST_MakePoint(?, ?) WHERE id = ?');
         return $stmt->execute([$name, $slug, $description, $wysiwyg, $longitude, $latitude, $id]);
     }
