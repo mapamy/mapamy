@@ -6,14 +6,14 @@
   margin-bottom: 2rem;
 
   .pin-grid__pin {
-    background-color: $color-blue;
-    color: $color-white;
+    background-color: $color-black;
     padding: 1rem;
     cursor: pointer;
+    border-radius: 0.5rem;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: $color-purple;
+      background-color: $color-orange;
     }
   }
 }

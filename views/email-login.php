@@ -30,7 +30,7 @@ if (!isset($view)) {
                 <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
             </div>
             <div class="form-control">
-                <button type="submit" class="button"><?= __('Send me a login link') ?></button>
+                <button type="submit" class="button button--green"><?= __('Send me a login link') ?></button>
             </div>
         </form>
         <?php

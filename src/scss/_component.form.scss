@@ -22,7 +22,7 @@
             box-sizing: border-box;
 
             &:focus {
-                border-color: $color-blue;
+                border-color: $color-orange;
                 outline: none;
             }
         }
@@ -32,8 +32,7 @@
         margin-top: 1rem;
         padding: 1rem;
         border-radius: 0.5rem;
-        color: $color-black;
-        background-color: $color-yellow;
+        background-color: $color-gray;
         text-align: center;
     }
 }
