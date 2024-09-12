@@ -1,13 +1,64 @@
 .main.home {
   position: relative;
 
+  h2 {
+    margin-top: 3.4rem;
+  }
+
+  ul.login {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    list-style: none;
+
+    li {
+      display: inline-block;
+    }
+
+    li a {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border-radius: 0.5rem;
+      background-color: $color-orange;
+      color: $color-white;
+    }
+  }
+
+  ul.random-maps {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+
+    li {
+      display: inline-block;
+    }
+
+    li a {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border-radius: 0.5rem;
+      background-color: $color-black;
+      color: $color-white;
+      white-space: nowrap;
+    }
+  }
+
+  ul li a:hover {
+    box-shadow: 0 0 0 0.2rem $color-black;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
   figure {
     display: none;
   }
 
   @include media-query--from-desktop() {
     p {
-      max-width: 400px;
+      max-width: 500px;
     }
 
     figure {

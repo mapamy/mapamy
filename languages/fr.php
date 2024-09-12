@@ -45,4 +45,6 @@ return [
     'Terms and Conditions' => 'Conditions générales',
     'Logout' => 'Déconnexion',
     'What?' => 'Quoi?',
+    'Wanna see your map here?' => 'Vous voulez voir votre carte ici?',
+    'Well, just login and create it. You can also create private maps if you want!' => 'Eh bien, connectez-vous et créez-la. Vous pouvez également créer des cartes privées si vous le souhaitez!',
 ];
