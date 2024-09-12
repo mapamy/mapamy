@@ -4,6 +4,9 @@
 @import 'defaults.scss';
 @import 'layout.scss';
 
+// Specific layout extensions
+@import 'layout.home.scss';
+
 // Partials
 @import 'site-header.scss';
 @import 'site-footer.scss';

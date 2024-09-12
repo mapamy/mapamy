@@ -44,4 +44,7 @@ return [
     'Privacy Policy' => 'Informativa sulla privacy',
     'Terms and Conditions' => 'Termini e condizioni',
     'Logout' => 'Esci',
+    'What?' => 'Cosa?',
+    'Wanna see your map here?' => 'Vuoi vedere la tua mappa qui?',
+    'Well, just login and create it. You can also create private maps if you want!' => 'Beh, basta accedere e crearla. Puoi anche creare mappe private se vuoi!',
 ];
