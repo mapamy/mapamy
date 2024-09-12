@@ -44,4 +44,5 @@ return [
     'Privacy Policy' => 'Política de privacidad',
     'Terms and Conditions' => 'Términos y Condiciones',
     'Logout' => 'Cerrar sesión',
+    'What?' => '¿Qué?',
 ];

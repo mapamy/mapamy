@@ -1,0 +1,27 @@
+.main.home {
+  position: relative;
+
+  figure {
+    display: none;
+  }
+
+  @include media-query--from-desktop() {
+    p {
+      max-width: 400px;
+    }
+
+    figure {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
