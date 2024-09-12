@@ -7,15 +7,15 @@ if (!isset($view)) {
     <?php
     include __DIR__ . '/partials/site-header.php';
     ?>
-    <h2><?= __('Map') ?> <?php echo $view['mapData']['name']; ?></h2>
+    <h2><?= __('Map') ?>: <?php echo $view['mapData']['name']; ?></h2>
     <nav>
         <a href="/"><?= __('Back home') ?></a>
-    <?php
-    if ($view['isOwner']) {
-        echo '<a href="/edit-map/' . $view['mapData']['id'] . '">' . __('Edit map') . '</a>';
-        echo '<a href="/create-pin/' . $view['mapData']['id'] . '">' . __('Add pin')  . '</a>';
-    }
-    ?>
+        <?php
+        if ($view['isOwner']) {
+            echo '<a href="/edit-map/' . $view['mapData']['id'] . '">' . __('Edit map') . '</a>';
+            echo '<a href="/create-pin/' . $view['mapData']['id'] . '">' . __('Add pin') . '</a>';
+        }
+        ?>
     </nav>
     <div itemscope itemtype="https://schema.org/Map">
         <meta itemprop="name" content="<?php echo $view['mapData']['name']; ?>">
@@ -24,10 +24,10 @@ if (!isset($view)) {
             <h3><?= __('Pins') ?></h3>
             <ul class="pin-grid">
                 <?php foreach ($view['pins'] as $pin): ?>
-                    <li class="pin-grid__pin" data-lat="<?php echo $pin['latitude']; ?>" data-lng="<?php echo $pin['longitude']; ?>">
+                    <li class="pin-grid__pin" data-lat="<?php echo $pin['latitude']; ?>"
+                        data-lng="<?php echo $pin['longitude']; ?>">
                         <div itemscope itemtype="https://schema.org/Place">
                             <span itemprop="name" class="pin-grid__pin-title"><?php echo $pin['name']; ?></span>
-                            <span itemprop="description"><?php echo $pin['description']; ?></span>
                             <meta itemprop="latitude" content="<?php echo $pin['latitude']; ?>">
                             <meta itemprop="longitude" content="<?php echo $pin['longitude']; ?>">
                         </div>
@@ -43,18 +43,27 @@ if (!isset($view)) {
     document.addEventListener('DOMContentLoaded', function () {
         const pins = <?php echo json_encode($view['pins']); ?>;
         const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
+        const markers = [];
 
         pins.forEach(pin => {
-            window.leafletUtils.addMarker(pin.latitude, pin.longitude, `<b>${pin.name}</b><br><?= __('Link') ?>: <a href="/p/${pin.slug}"><?= __('View pin') ?></a>`);
+            const description = pin.description ? `<p>${pin.description}</p>` : '';
+            const marker = window.leafletUtils.addMarker(pin.latitude, pin.longitude, `
+            <b>${pin.name}</b>
+            ${description}
+            <a class="button" href="/p/${pin.slug}"><?= __('View pin') ?></a>
+            `);
+            markers.push(marker);
         });
 
         window.leafletUtils.fitMapToMarkers(pinCoordinates);
 
         const pinListItems = document.querySelectorAll('li[data-lat][data-lng]');
-        pinListItems.forEach(item => {
+        pinListItems.forEach((item, index) => {
             item.addEventListener('click', () => {
                 const lat = item.getAttribute('data-lat');
                 const lng = item.getAttribute('data-lng');
+                markers.forEach(marker => marker.closePopup());
+                markers[index].openPopup();
                 window.leafletUtils.setMapView(lat, lng, 13);
             });
         });

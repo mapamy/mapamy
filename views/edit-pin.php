@@ -49,7 +49,7 @@ $pinData = $view['pinData'];
             <input type="text" id="longitude" name="longitude" required
                    value="<?php echo htmlspecialchars($pinData['longitude'] ?? ''); ?>">
         </div>
-        <button type="submit" class="button"><?= __('Update pin') ?></button>
+        <button type="submit" class="button button--green"><?= __('Update pin') ?></button>
     </form>
 </div>
 <div id="leaflet-map" class="map"></div>

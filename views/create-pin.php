@@ -37,7 +37,7 @@ $mapData = $view['mapData'];
         <div class="form-control">
             <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
         </div>
-        <button type="submit" class="button"><?= __('Create pin') ?></button>
+        <button type="submit" class="button button--green"><?= __('Create pin') ?></button>
     </form>
 </div>
 <div id="leaflet-map" class="map"></div>

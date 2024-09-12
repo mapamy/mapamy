@@ -10,6 +10,7 @@ if (!isset($view)) {
     <h2><?= __('Dashboard') ?></h2>
     <nav>
         <a href='<?php echo $view['baseUrl']; ?>/create-map'><?= __('Create map') ?></a>
+        <a href='<?php echo $view['baseUrl']; ?>/logout'><?= __('Logout') ?></a>
     </nav>
     <h2><?= __('My maps') ?></h2>
     <?php if (empty($view['maps'])) { ?>

@@ -1,26 +1,29 @@
 .button {
     display: inline-block;
-    padding: 1rem 2rem;
-    border: 0.1rem solid $color-blue;
-    color: $color-blue;
+    padding: 0.8rem 1.2rem;
+    background-color: $color-black;
+    color: $color-white;
+    border: none;
     border-radius: 0.5rem;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 0 0.2rem rgba(255, 255, 255, 0.5);
     transition: background-color 0.3s ease;
 
-    &:hover {
-        border-color: $color-orange;
-        color: $color-orange;
+    &.button--green {
+        background-color: $color-green;
     }
 
-    &:active {
-        border-color: $color-purple;
-        color: $color-purple;
+    &.button--red {
+        background-color: $color-red;
+    }
+
+    &:hover, &:active {
+        background-color: $color-orange;
     }
 
     &:disabled {
-        background-color: $color-black;
-        color: $color-black;
+        background-color: $color-gray;
         cursor: not-allowed;
     }
 }

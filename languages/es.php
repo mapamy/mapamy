@@ -40,8 +40,8 @@ return [
     'Send me a login link' => 'Envíame un enlace de acceso',
     'With Google' => 'Con Google',
     'With email' => 'Con correo electrónico',
-    'Link' => 'Enlace',
     'View pin' => 'Ver pin',
     'Privacy Policy' => 'Política de privacidad',
     'Terms and Conditions' => 'Términos y Condiciones',
+    'Logout' => 'Cerrar sesión',
 ];

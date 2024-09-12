@@ -36,6 +36,6 @@ if (!isset($view)) {
         <div class="form-control">
             <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
         </div>
-        <button type="submit" class="button"><?= __('Create map') ?></button>
+        <button type="submit" class="button button--green"><?= __('Create map') ?></button>
     </form>
 </main>

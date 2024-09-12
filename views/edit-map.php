@@ -47,6 +47,6 @@ $mapData = $view['mapData'];
                 <option value="3"><?= __('Private') ?></option>
             </select>
         </div>
-        <button type="submit" class="button"><?= __('Update map') ?></button>
+        <button type="submit" class="button button--green"><?= __('Update map') ?></button>
     </form>
 </main>
