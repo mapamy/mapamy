@@ -12,39 +12,103 @@ if (!file_exists($uploadsDir)) {
 
 // Handle file upload
 if (isset($_FILES['upload'])) {
-    $fileType = pathinfo($_FILES['upload']['name'], PATHINFO_EXTENSION);
+    // Validate the uploaded file
+    $imageInfo = getimagesize($_FILES['upload']['tmp_name']);
 
-    // Validate file type (for example, only images)
-    $allowTypes = ['jpg', 'jpeg', 'png', 'gif', 'avif', 'apng', 'svg', 'webp'];
-    if (in_array(strtolower($fileType), $allowTypes)) {
-        try {
-            $image = new Imagick($_FILES['upload']['tmp_name']);
-
-            // Resize image if necessary
-            $maxDimension = 980;
-            $image->resizeImage($maxDimension, $maxDimension, Imagick::FILTER_LANCZOS, 1, true);
-
-            // Convert to WebP
-            $image->setImageFormat('webp');
-
-            // Generate a unique file name
-            $fileName = uniqid('', true) . '.webp';
-            $targetFilePath = $uploadsDir . '/' . $fileName;
-
-            // Write the image to the target file path
-            $image->writeImage($targetFilePath);
-            $image->clear();
-            $image->destroy();
-
-            // Respond with the URL to the uploaded file
-            $url = '/image/' . $_SESSION['user_id'] . '/' . $_GET['map_id'] . '/' . $fileName;
-            echo json_encode(['url' => $url]);
-        } catch (Exception $e) {
-            echo json_encode(['error' => 'Error processing image: ' . $e->getMessage()]);
-        }
-    } else {
-        echo json_encode(['error' => __('Invalid file type')]);
+    if ($imageInfo === false) {
+        echo json_encode(['error' => 'Invalid image file.']);
+        exit;
     }
+
+    $imageType = $imageInfo[2]; // An integer representing the image type
+
+    $allowedImageTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP, IMAGETYPE_BMP];
+
+    if (!in_array($imageType, $allowedImageTypes)) {
+        echo json_encode(['error' => 'Unsupported image type.']);
+        exit;
+    }
+
+    // Load the image
+    switch ($imageType) {
+        case IMAGETYPE_JPEG:
+            $image = imagecreatefromjpeg($_FILES['upload']['tmp_name']);
+            break;
+        case IMAGETYPE_PNG:
+            $image = imagecreatefrompng($_FILES['upload']['tmp_name']);
+            break;
+        case IMAGETYPE_GIF:
+            $image = imagecreatefromgif($_FILES['upload']['tmp_name']);
+            break;
+        case IMAGETYPE_WEBP:
+            $image = imagecreatefromwebp($_FILES['upload']['tmp_name']);
+            break;
+        case IMAGETYPE_BMP:
+            $image = imagecreatefrombmp($_FILES['upload']['tmp_name']);
+            break;
+        default:
+            echo json_encode(['error' => 'Unsupported image type.']);
+            exit;
+    }
+
+    if (!$image) {
+        echo json_encode(['error' => 'Failed to load image.']);
+        exit;
+    }
+
+    // Resize image if necessary
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    $maxDimension = 980;
+
+    if ($width > $maxDimension || $height > $maxDimension) {
+        if ($width > $height) {
+            $newWidth = $maxDimension;
+            $newHeight = $maxDimension * ($height / $width);
+        } else {
+            $newHeight = $maxDimension;
+            $newWidth = $maxDimension * ($width / $height);
+        }
+
+        $newWidth = round($newWidth);
+        $newHeight = round($newHeight);
+
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+        // Handle transparency for PNG, GIF, and WebP
+        if ($imageType == IMAGETYPE_GIF || $imageType == IMAGETYPE_PNG || $imageType == IMAGETYPE_WEBP) {
+            imagecolortransparent($newImage, imagecolorallocatealpha($newImage, 0, 0, 0, 127));
+            imagealphablending($newImage, false);
+            imagesavealpha($newImage, true);
+        }
+
+        // Resample the image
+        imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        // Replace the original image with the resized one
+        imagedestroy($image);
+        $image = $newImage;
+    }
+
+    // Convert to WebP and save
+    $fileName = uniqid('', true) . '.webp';
+    $targetFilePath = $uploadsDir . '/' . $fileName;
+
+    $quality = 80; // Adjust quality as needed
+    $result = imagewebp($image, $targetFilePath, $quality);
+
+    imagedestroy($image);
+
+    if (!$result) {
+        echo json_encode(['error' => 'Failed to save the image.']);
+        exit;
+    }
+
+    // Respond with the URL to the uploaded file
+    $url = '/image/' . $_SESSION['user_id'] . '/' . $_GET['map_id'] . '/' . $fileName;
+    echo json_encode(['url' => $url]);
+
 } else {
     echo json_encode(['error' => 'No file uploaded.']);
 }
