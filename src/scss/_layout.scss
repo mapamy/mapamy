@@ -5,7 +5,7 @@ body {
 }
 
 .main {
-  padding: 4rem;
+  padding: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -35,6 +35,10 @@ body {
     .map, .main {
       width: 50%;
       height: auto;
+    }
+
+    .main {
+      padding: 4rem;
     }
 
   }

@@ -2,18 +2,29 @@
   list-style: none;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
 
   .pin-grid__pin {
     background-color: $color-black;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
     border-radius: 0.5rem;
+    font-size: 0.8rem;
     transition: background-color 0.3s;
 
     &:hover {
       background-color: $color-orange;
+    }
+  }
+
+  @include media-query--from-desktop-medium() {
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .pin-grid__pin {
+      padding: 1rem;
+      font-size: 1rem;
     }
   }
 }

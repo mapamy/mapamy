@@ -10,39 +10,39 @@ body {
 }
 
 h1 {
-  font-size: 2.7rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 1.4rem;
   font-family: 'Anton_SC', sans-serif;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 2rem;
-  margin-bottom: 1.4rem;
-  font-family: 'Anton_SC', sans-serif;
-}
-
-h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   margin-bottom: 1.3rem;
   font-family: 'Anton_SC', sans-serif;
 }
 
-h4 {
-  font-size: 1.5rem;
-  margin-bottom: 1.2rem;
-  font-family: 'Anton_SC', sans-serif;
-}
-
-h5 {
-  font-size: 1.3rem;
+h3 {
+  font-size: 1.4rem;
   margin-bottom: 1.1rem;
   font-family: 'Anton_SC', sans-serif;
 }
 
-h6 {
+h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.9rem;
+  font-family: 'Anton_SC', sans-serif;
+}
+
+h5 {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  font-family: 'Anton_SC', sans-serif;
+}
+
+h6 {
+  font-size: 0.7rem;
+  margin-bottom: 0.7rem;
   font-family: 'Anton_SC', sans-serif;
 }
 
@@ -66,4 +66,35 @@ img {
 
 input, textarea {
   color: $color-black;
+}
+
+@include media-query--from-desktop-medium() {
+  h1 {
+    font-size: 2.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  h5 {
+    font-size: 1.3rem;
+    margin-bottom: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
 }

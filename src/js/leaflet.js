@@ -18,10 +18,10 @@ L.Marker.prototype.options.icon = mapamyMarker;
 window.leafletUtils = window.leafletUtils || {};
 
 // Assign functions to the subobject
-window.leafletUtils.addMarker = function(lat, lng, popupContent = '') {
+window.leafletUtils.addMarker = function(lat, lng, popupContent = '', popupOptions = {}) {
     const marker = L.marker([lat, lng]).addTo(window.map);
     if (popupContent) {
-        marker.bindPopup(popupContent);
+        marker.bindPopup(popupContent, popupOptions);
     }
     return marker;
 };
