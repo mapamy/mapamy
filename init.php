@@ -15,10 +15,21 @@ session_start();
 
 // Set default language if not set
 if (!isset($_SESSION['language'])) {
-    $tryLang = $_COOKIE['language'] ?? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    $tryLang = $_COOKIE['language'] ?? null;
+
+    $headers = getallheaders();
+    if (isset($headers['Accept-Language'])) {
+        $tryLang = substr($headers['Accept-Language'], 0, 2);
+    }
+
+    // Validate the language
     $supportedLangs = ['en', 'es', 'fr', 'de', 'it'];
-    $_SESSION['language'] = in_array($tryLang, $supportedLangs) ? $tryLang : 'en';
-    setcookie('language', $_SESSION['language'], time() + (86400 * 365), "/");
+    if (!in_array($tryLang, $supportedLangs)) {
+        $tryLang = 'en'; // Default language
+    }
+
+    $_SESSION['language'] = $tryLang;
+    setcookie('language', $tryLang, time() + (86400 * 365), "/");
 }
 
 /**
