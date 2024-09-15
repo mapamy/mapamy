@@ -11,6 +11,7 @@ AssetManager::getInstance()->addScript('leaflet');
 AssetManager::getInstance()->addStyle('leaflet');
 AssetManager::getInstance()->addScript('ckEditor');
 AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('pinEdition');
 AssetManager::getInstance()->addScript('https://www.google.com/recaptcha/api.js');
 
 $pdo = (new Database())->getConnection();
@@ -29,12 +30,12 @@ try {
 
 $errorMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']) && isset($_POST['g-recaptcha-response'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['wysiwyg'], $_POST['latitude'], $_POST['longitude']) && isset($_POST['g-recaptcha-response'])) {
     if (!Utils::isRecaptchaTokenVerificationSuccessful($_POST['g-recaptcha-response'])) {
         $errorMessage = __('Recaptcha verification failed');
     } else {
         try {
-            $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['lat'], $_POST['lng']);
+            $pin->createPin($_GET['id'], $_SESSION['user_id'], $_POST['name'], $_POST['wysiwyg'], $_POST['latitude'], $_POST['longitude']);
             $slug = $mapData['slug'];
             // Redirect to the map
             header("Location: /m/$slug");

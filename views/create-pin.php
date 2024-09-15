@@ -27,12 +27,12 @@ $mapData = $view['mapData'];
             <textarea name="wysiwyg" id="wysiwyg" data-map-id="<?php echo $mapData['id']; ?>"></textarea>
         </div>
         <div class="form-control">
-            <label for="lat"><?= __('Latitude') ?></label>
-            <input type="text" id="lat" name="lat">
+            <label for="latitude"><?= __('Latitude') ?></label>
+            <input type="number" min="-90" max="90" step="any" id="latitude" name="latitude">
         </div>
         <div class="form-control">
-            <label for="lng"><?= __('Longitude') ?></label>
-            <input type="text" id="lng" name="lng">
+            <label for="longitude"><?= __('Longitude') ?></label>
+            <input type="number" min="-90" max="90" step="any" id="longitude" name="longitude">
         </div>
         <div class="form-control">
             <div class="g-recaptcha" data-sitekey="<?php echo $_ENV['RECAPTCHA_SITE_KEY']; ?>"></div>
@@ -40,10 +40,17 @@ $mapData = $view['mapData'];
         <button type="submit" class="button button--green"><?= __('Create pin') ?></button>
     </form>
 </div>
-<div id="leaflet-map" class="map"></div>
+<div class="map">
+    <div id="leaflet-map"></div>
+    <div class="map-tools">
+        <?php
+        include __DIR__ . '/partials/pin-edition-map-tools.php';
+        ?>
+    </div>
+</div>
 <script>
+    let newPinMarker;
     document.addEventListener('DOMContentLoaded', function () {
-        let marker;
         const pins = <?php echo json_encode($view['pins']); ?>;
         const pinCoordinates = pins.map(pin => [pin.latitude, pin.longitude]);
 
@@ -52,16 +59,5 @@ $mapData = $view['mapData'];
         });
 
         window.leafletUtils.fitMapToMarkers(pinCoordinates);
-
-        window.map.on('click', (e) => {
-            document.getElementById('lat').value = e.latlng.lat;
-            document.getElementById('lng').value = e.latlng.lng;
-
-            if (marker) {
-                window.map.removeLayer(marker);
-            }
-
-            marker = window.leafletUtils.addMarker(e.latlng.lat, e.latlng.lng);
-        });
     });
 </script>

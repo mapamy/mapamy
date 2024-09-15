@@ -119,6 +119,7 @@ const editorConfig = {
         ImageStyle,
         ImageResize
     ],
+    extraPlugins: [MyCustomUploadAdapterPlugin],
     simpleUpload: {
         uploadUrl: '', // This will be set dynamically
     },
@@ -156,7 +157,10 @@ const editorConfig = {
                 value: 'custom'
             }
         ],
-        resizeUnit: 'px' // Use 'px' for pixels instead of '%'
+        resizeUnit: 'px',
+        upload: {
+            types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff', 'heic', 'heif'],
+        }
     },
     fontFamily: {
         supportAllValues: true
@@ -258,14 +262,114 @@ const editorConfig = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+// Custom Upload Adapter Plugin
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        // Pass mapId to the upload adapter
+        return new MyUploadAdapter(loader, editor.config.get('mapId'));
+    };
+}
+
+class MyUploadAdapter {
+    constructor(loader, mapId) {
+        this.loader = loader;
+        this.mapId = mapId;
+    }
+
+    upload() {
+        return this.loader.file.then(
+            (file) =>
+                new Promise((resolve, reject) => {
+                    this._initRequest();
+                    this._initListeners(resolve, reject, file);
+                    this._sendRequest(file);
+                })
+        );
+    }
+
+    abort() {
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+    }
+
+    _initRequest() {
+        const xhr = (this.xhr = new XMLHttpRequest());
+        xhr.open('POST', `/upload-editor-image/${this.mapId}`, true);
+        xhr.responseType = 'json';
+    }
+
+    _initListeners(resolve, reject, file) {
+        const xhr = this.xhr;
+        const loader = this.loader;
+        const genericErrorText = `Couldn't upload file: ${file.name}.`;
+
+        xhr.addEventListener('error', () => reject(genericErrorText));
+        xhr.addEventListener('abort', () => reject());
+        xhr.addEventListener('load', () => {
+            const response = xhr.response;
+
+            if (!response || response.error) {
+                return reject(response && response.error ? response.error : genericErrorText);
+            }
+
+            // Update the button's data attributes and div visibility
+            const setCoordinatesButton = document.getElementById('set-image-autodetected-coordinates');
+            const gpsDiv = document.querySelector('.image-autodetected-cooridnates');
+
+            if (setCoordinatesButton && gpsDiv) {
+                if (response.gps) {
+                    // GPS data is available
+                    setCoordinatesButton.dataset.latitude = response.gps.latitude;
+                    setCoordinatesButton.dataset.longitude = response.gps.longitude;
+                    // Show the div containing the button
+                    gpsDiv.style.display = 'block';
+                } else {
+                    // No GPS data available
+                    setCoordinatesButton.dataset.latitude = '';
+                    setCoordinatesButton.dataset.longitude = '';
+                    // Hide the div containing the button
+                    gpsDiv.style.display = 'none';
+                }
+            }
+
+            resolve({
+                default: response.url,
+            });
+        });
+
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', (evt) => {
+                if (evt.lengthComputable) {
+                    loader.uploadTotal = evt.total;
+                    loader.uploaded = evt.loaded;
+                }
+            });
+        }
+    }
+
+    _sendRequest(file) {
+        const data = new FormData();
+        data.append('upload', file);
+
+        this.xhr.send(data);
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const wysiwygElement = document.querySelector('#wysiwyg');
     const mapId = wysiwygElement.getAttribute('data-map-id');
 
-    editorConfig.simpleUpload.uploadUrl = `/upload-editor-image/${mapId}`;
+    // Make sure wysiwyg and mapId are set
+    if (!wysiwygElement || !mapId) {
+        return;
+    }
 
-    ClassicEditor.create(wysiwygElement, editorConfig)
-        .catch(error => {
-            console.error(error);
-        });
+    // Set mapId in the config
+    editorConfig.mapId = mapId;
+
+    ClassicEditor.create(wysiwygElement, editorConfig).catch((error) => {
+        console.error(error);
+    });
 });

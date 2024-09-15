@@ -1,0 +1,14 @@
+.map-tools {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 999;
+
+    .image-autodetected-cooridnates {
+        display: none;
+        padding: 1rem;
+        background-color: rgba(0,0,0,0.9);
+        color: $color-white;
+        border-radius: 1rem;
+    }
+}
