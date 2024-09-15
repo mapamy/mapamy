@@ -16,13 +16,13 @@ if (isset($_FILES['upload'])) {
 
     // Check if the file is less than 7 MB
     if ($_FILES['upload']['size'] > 7 * 1024 * 1024) {
-        echo json_encode(['error' => 'Maximum allowed file size is 7 MB.']);
+        echo json_encode(['error' => __('Maximum allowed file size is 7 MB')]);
         exit;
     }
 
     // Check if there was an error during file upload
     if ($_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
-        echo json_encode(['error' => 'File upload failed.']);
+        echo json_encode(['error' => __('File upload failed')]);
         exit;
     }
 
@@ -33,7 +33,7 @@ if (isset($_FILES['upload'])) {
     $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/heic', 'image/heif'];
 
     if (!in_array($mimeType, $allowedMimeTypes)) {
-        echo json_encode(['error' => 'Unsupported image type.']);
+        echo json_encode(['error' => __('Unsupported format')]);
         exit;
     }
 
@@ -91,12 +91,12 @@ if (isset($_FILES['upload'])) {
         echo json_encode(['url' => $url, 'gps' => $gpsCoordinates]);
 
     } catch (Exception $e) {
-        echo json_encode(['error' => 'Failed to process the image.']);
+        echo json_encode(['error' => __('Failed to process the image')]);
         exit;
     }
 
 } else {
-    echo json_encode(['error' => 'No file uploaded.']);
+    echo json_encode(['error' => __('No file uploaded')]);
 }
 
 // Function to extract GPS coordinates from EXIF data
