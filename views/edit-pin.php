@@ -40,42 +40,34 @@ $pinData = $view['pinData'];
                       data-map-id="<?php echo $mapData['id']; ?>"><?php echo $pinData['wysiwyg'] ?? ''; ?></textarea>
         </div>
         <div class="form-group">
-            <label for="latitude"><?= __('Latitude') ?>'</label>
-            <input type="text" id="latitude" name="latitude" required
+            <label for="latitude"><?= __('Latitude') ?></label>
+            <input type="number" min="-90" max="90" step="any" id="latitude" name="latitude" required
                    value="<?php echo htmlspecialchars($pinData['latitude'] ?? ''); ?>">
         </div>
         <div class="form-group">
             <label for="longitude"><?= __('Longitude') ?></label>
-            <input type="text" id="longitude" name="longitude" required
+            <input type="number" min="-90" max="90" step="any" id="longitude" name="longitude" required
                    value="<?php echo htmlspecialchars($pinData['longitude'] ?? ''); ?>">
         </div>
         <button type="submit" class="button button--green"><?= __('Update pin') ?></button>
     </form>
 </div>
-<div id="leaflet-map" class="map"></div>
+<div class="map">
+    <div id="leaflet-map"></div>
+    <div class="map-tools">
+        <?php
+        include __DIR__ . '/partials/pin-edition-map-tools.php';
+        ?>
+    </div>
+</div>
 <script>
+    let newPinMarker;
     document.addEventListener('DOMContentLoaded', function () {
         const lat = parseFloat(<?php echo $pinData['latitude']; ?>);
         const lng = parseFloat(<?php echo $pinData['longitude']; ?>);
 
         // Initialize marker at the pin's location and center the view on it
-        let marker = window.leafletUtils.addMarker(lat, lng);
+        newPinMarker = window.leafletUtils.addMarker(lat, lng);
         window.leafletUtils.setMapView(lat, lng, 13);
-
-        window.map.on('click', function (e) {
-            // Remove the existing marker
-            if (marker) {
-                window.map.removeLayer(marker);
-            }
-
-            // Update the latitude and longitude input fields
-            document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
-            document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
-
-            // Add a new marker at the clicked location using window.leafletUtils
-            // and center the view on the new marker
-            marker = window.leafletUtils.addMarker(e.latlng.lat, e.latlng.lng);
-            window.leafletUtils.setMapView(e.latlng.lat, e.latlng.lng, 13);
-        });
     });
 </script>

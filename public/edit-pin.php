@@ -10,6 +10,7 @@ AssetManager::getInstance()->addScript('leaflet');
 AssetManager::getInstance()->addScript('ckEditor');
 AssetManager::getInstance()->addStyle('leaflet');
 AssetManager::getInstance()->addStyle('ckEditor');
+AssetManager::getInstance()->addScript('pinEdition');
 
 $errorMessage = '';
 $pinData = [];

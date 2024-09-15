@@ -19,6 +19,7 @@ module.exports = (env, argv) => {
       // JS files that handle independent features
       ckEditor: './src/js/ck-editor.js',
       leaflet: './src/js/leaflet.js',
+      pinEdition: './src/js/pin-edition.js',
     },
     watch: argv.mode !== 'production',
     watchOptions: {
