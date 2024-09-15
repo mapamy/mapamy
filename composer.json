@@ -19,7 +19,8 @@
     "robmorgan/phinx": "^0.16.1",
     "ext-curl": "*",
     "ext-pdo": "*",
-    "ext-imagick": "*"
+    "ext-imagick": "*",
+    "ext-fileinfo": "*"
   },
   "autoload": {
     "psr-4": {
