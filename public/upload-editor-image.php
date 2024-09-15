@@ -14,6 +14,18 @@ if (!file_exists($uploadsDir)) {
 if (isset($_FILES['upload'])) {
     $tmpName = $_FILES['upload']['tmp_name'];
 
+    // Check if the file is less than 7 MB
+    if ($_FILES['upload']['size'] > 7 * 1024 * 1024) {
+        echo json_encode(['error' => 'Maximum allowed file size is 7 MB.']);
+        exit;
+    }
+
+    // Check if there was an error during file upload
+    if ($_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(['error' => 'File upload failed.']);
+        exit;
+    }
+
     // Validate the uploaded file
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mimeType = $finfo->file($tmpName);
