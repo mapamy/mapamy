@@ -47,4 +47,12 @@ return [
     'What?' => '¿Qué?',
     'Wanna see your map here?' => '¿Quieres ver tu mapa aquí?',
     'Well, just login and create it. You can also create private maps if you want!' => '¡Bueno, simplemente inicia sesión y créalo. ¡También puedes crear mapas privados si quieres!',
+    'Maximum allowed file size is 7 MB' => 'El tamaño máximo de archivo permitido es de 7 MB',
+    'File upload failed' => 'Error al subir el archivo',
+    'Unsupported format' => 'Formato no soportado',
+    'Failed to process the image' => 'Error al procesar la imagen',
+    'No file uploaded' => 'No se ha subido ningún archivo',
+    'The uploaded image contains GPS coordinates' => 'La imagen subida contiene coordenadas GPS',
+    'Set marker' => 'Establecer marcador',
+    'Ignore' => 'Ignorar',
 ];
